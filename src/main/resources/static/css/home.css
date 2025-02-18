@@ -145,20 +145,85 @@ main {
 .sidebar .categories-section h3 {
   color: #036ea2;
   margin-bottom: 10px;
+  border-bottom: 1px gray solid;
 }
 .sidebar .categories-section .category-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
-.sidebar .categories-section .category-group h4 {
-  margin: 5px 0;
-  font-size: 1rem;
-  color: #357aa9;
+.sidebar .categories-section .category-group input[type=submit] {
+  all: unset;
+  color: #717171;
+  background: none;
+  border: none;
+  margin: 4px 0;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
 }
-.sidebar .categories-section .category-group h4:hover {
+.sidebar .categories-section .category-group input[type=submit]:hover {
   color: #02537a;
+}
+
+.book-suggestions {
+  grid-column: 2/-1;
+  grid-row: 2/-1;
+  padding: 0 50px;
+  row-gap: 10px;
+  display: flex;
+  flex-flow: column;
+}
+.book-suggestions h1 {
+  padding: 4px;
+  color: #71818f;
+  font-size: 1.5em;
+  font-weight: 450;
+  margin-top: 8px;
+  border-bottom: 2px solid #cad6de;
+}
+.book-suggestions .book-card {
+  display: flex;
+  flex-flow: column;
+  row-gap: 5px;
+  max-width: 110px;
+  height: fit-content;
+  padding: 10px;
+  border-radius: 4px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.book-suggestions .book-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.book-suggestions .book-card h2 {
+  color: #02537a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.book-suggestions .book-card p {
+  color: #46ab09;
+  font-size: 0.75rem;
+}
+.book-suggestions .book-card img {
+  width: 100px;
+  height: 140px;
+  align-self: center;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  box-shadow: 0 3px 10px -2px black;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.book-suggestions .book-card img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.book-card-group {
+  width: 100%;
+  display: flex;
+  column-gap: 40px;
 }
 
 /*# sourceMappingURL=home.css.map */

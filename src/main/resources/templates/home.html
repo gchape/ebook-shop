@@ -22,7 +22,29 @@
 
 <main>
     <div class="content-wrapper">
-        <div class="search-bar-container"></div>
+        <div class="book-suggestions">
+            <h1 th:text="${param.genre} ?: 'History'"/>
+            <div class="book-card-group">
+                <div class="book-card" th:each="b : ${genreBooks}" th:object="${b}">
+                    <img th:src="*{getThumbnail()}" alt="book-thumbnail">
+                    <h2 th:text="*{getTitle()}"/>
+                    <p th:text="'US$' + *{getPrice()}"/>
+                </div>
+            </div>
+
+            <h1>Spring Boot</h1>
+            <div class="book-card-group">
+                <div class="book-card" th:each="b : ${springBootBooks}" th:object="${b}">
+                    <img th:src="*{getThumbnail()}" alt="book-thumbnail">
+                    <h2 th:text="*{getTitle()}"/>
+                    <p th:text="'US$' + *{getPrice()}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-bar-container">
+
+        </div>
 
         <div class="sidebar">
             <div class="newsletter-section">
@@ -46,33 +68,25 @@
 
             <div class="categories-section">
                 <h3>Popular Categories</h3>
-                <div class="category-group">
-                    <h4>Body, Mind & Spirit</h4>
-                    <h4>Business</h4>
-                    <h4>Computers</h4>
-                    <h4>Health & Fitness</h4>
-                    <h4>History</h4>
-                    <h4>Religion</h4>
-                    <h4>Science</h4>
-                </div>
+                <form class="category-group" method="get">
+                    <input type="submit" name="genre" value="Programming">
+                    <input type="submit" name="genre" value="Business">
+                    <input type="submit" name="genre" value="History">
+                    <input type="submit" name="genre" value="Religion">
+                    <input type="submit" name="genre" value="Science">
+                </form>
 
                 <h3>Fiction</h3>
-                <div class="category-group">
-                    <h4>Children's Fiction</h4>
-                    <h4>Comics & Graphic Novels</h4>
-                    <h4>Crime</h4>
-                    <h4>Fantasy</h4>
-                    <h4>General Fiction</h4>
-                    <h4>Literary</h4>
-                    <h4>Romance</h4>
-                    <h4>Science Fiction</h4>
-                    <h4>Thrillers</h4>
-                    <h4>Young Adult Fiction</h4>
-                </div>
+                <form class="category-group" method="get">
+                    <input type="submit" name="genre" value="Crime">
+                    <input type="submit" name="genre" value="Fantasy">
+                    <input type="submit" name="genre" value="Literary">
+                    <input type="submit" name="genre" value="Romance">
+                    <input type="submit" name="genre" value="Science Fiction">
+                    <input type="submit" name="genre" value="Thrillers">
+                </form>
             </div>
         </div>
-
-        <div class="book-container"></div>
     </div>
 </main>
 </body>

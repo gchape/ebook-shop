@@ -1,8 +1,7 @@
 package io.github.gchape.ebookshop.servlets;
 
 import io.github.gchape.ebookshop.entities.Book;
-import io.github.gchape.ebookshop.services.api.BookRestApi;
-import io.github.gchape.ebookshop.services.dao.IEntityManager;
+import io.github.gchape.ebookshop.services.api.BookAPI;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,47 +14,42 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
-    private List<Book> books;
-
     @Autowired
     private TemplateEngine templateEngine;
     @Autowired
-    private BookRestApi bookAPI;
-    @Autowired
-    private IEntityManager<Book> bookService;
+    private BookAPI bookAPI;
+
+    private List<Book> genreBooks;
+    private List<Book> springBootBooks;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
-        try {
-            var json = Files.readString(Path.of(getClass().getResource("/book-data.txt").toURI()));
-
-            var books = bookAPI.mapJsonToBooks(json);
-            books.forEach(bookService::save);
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        genreBooks = bookAPI.searchByGenre("history", Optional.empty());
+        springBootBooks = bookAPI.searchByTitle("spring boot", Optional.empty());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         var ctx = new WebContext(JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp));
-        ctx.setVariable("books", books);
 
-        var home = templateEngine.process("home.html", ctx);
+        if (req.getParameter("genre") != null) {
+            genreBooks = bookAPI.searchByGenre(req.getParameter("genre").toLowerCase(), Optional.empty());
+        }
+
+        ctx.setVariable("genreBooks", genreBooks);
+        ctx.setVariable("springBootBooks", springBootBooks);
 
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         try (var writer = resp.getWriter()) {
-            writer.println(home);
+            writer.println(templateEngine.process("home.html", ctx));
         }
     }
 }

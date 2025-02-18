@@ -1,5 +1,6 @@
 package io.github.gchape.ebookshop.entities;
 
+import io.github.gchape.ebookshop.utils.UniqueUtils;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,8 +8,6 @@ import jakarta.persistence.*;
 @Access(value = AccessType.FIELD)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name = "user_name")
     private String username;
     @Column(name = "first_name")
@@ -20,19 +19,15 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    public User(String username, String firstName, String lastName, String email, String password) {
-        this.username = username;
+    public User(String firstName, String lastName, String email, String password) {
+        this.username = UniqueUtils.username();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
 
-    public User() {
-    }
-
-    public Long getId() {
-        return id;
+    protected User() {
     }
 
     public String getFirstName() {

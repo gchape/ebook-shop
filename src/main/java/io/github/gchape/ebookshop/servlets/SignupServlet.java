@@ -3,7 +3,6 @@ package io.github.gchape.ebookshop.servlets;
 import io.github.gchape.ebookshop.entities.User;
 import io.github.gchape.ebookshop.services.dao.IEntityManager;
 import io.github.gchape.ebookshop.services.dao.user.UserService;
-import io.github.gchape.ebookshop.utils.Unique100k;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,9 +32,8 @@ public class SignupServlet extends HttpServlet {
         var lastName = req.getParameter("lastName").trim();
         var password = req.getParameter("password").trim();
         var email = req.getParameter("email").trim();
-        String username = Unique100k.nextString();
 
-        userService.save(new User(username, firstName, lastName, email, password));
+        userService.save(new User(firstName, lastName, email, password));
 
         resp.sendRedirect("/");
     }
