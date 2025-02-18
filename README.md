@@ -1,4 +1,4 @@
-# EbookShop
+# Ebook-Shop
 
 ## Overview
 EbookShop is a web-based application for browsing, searching, and managing eBooks. It is built using Spring Boot, Thymeleaf, Servlets, and SCSS for styling. The application allows users to search for books via the Google Books API and manage their selections using a cart feature.
@@ -30,12 +30,18 @@ EbookShop/
 │   ├── static/        # Static assets (CSS, JS, images)
 │-- pom.xml            # Maven dependencies
 ```
+## ER model
+![unnamed0](https://github.com/user-attachments/assets/04a9c833-05bc-4f12-adba-f6bb054aa5c8)
+
 
 ## Setup and Installation
 ### Prerequisites
 - Java 17+
 - Maven
 - PostgreSQL (or other configured database)
+- Spring Web
+- Spring Data JPA
+- Thymeleaf
 
 ### Steps to Run
 1. Clone the repository:
@@ -68,9 +74,9 @@ EbookShop/
 - `POST /cart/remove/{id}` - Remove book from cart
 
 ## Styling with SCSS
-SCSS files are located under `src/main/resources/static/scss/`. To compile them, use:
+SCSS files are located under `src/main/resources/static/css/`. To compile them, use:
 ```sh
-sass --watch src/main/resources/static/scss:src/main/resources/static/css
+sass --watch src/main/resources/static/css:src/main/resources/static/css
 ```
 
 ## Contribution
