@@ -1,4 +1,4 @@
-package io.github.gchape.utils;
+package io.github.gchape.ebookshop.utils;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ public class Unique100k {
     }
 
     private static String getRandom(Object o) {
-        return switch (o) {
-            case Integer i -> String.valueOf((int) (Math.random() * i));
-            case List<?> l -> String.valueOf(l.get((int) (Math.random() * l.size())));
-            default -> throw new IllegalArgumentException();
-        };
+        if (o instanceof Integer)
+            return String.valueOf((int) (Math.random() * (int) o));
+        else if (o instanceof List<?>)
+            return String.valueOf(((List<?>) o).get((int) (Math.random() * ((List<?>) o).size())));
+        else throw new IllegalArgumentException();
     }
 }

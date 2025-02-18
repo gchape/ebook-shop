@@ -1,7 +1,7 @@
 package io.github.gchape.ebookshop.services.user;
 
 import io.github.gchape.ebookshop.entities.User;
-import io.github.gchape.utils.Unique100k;
+import io.github.gchape.ebookshop.utils.Unique100k;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
