@@ -1,0 +1,129 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 5,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "TOCgDwAAQBAJ",
+      "etag": "9hMPe58PrYM",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/TOCgDwAAQBAJ",
+      "volumeInfo": {
+        "title": "The Rust Programming Language",
+        "subtitle": "",
+        "authors": [
+          "Steve Klabnik",
+          "Carol Nichols"
+        ],
+        "publisher": "No Starch Press",
+        "publishedDate": "2018-07-10",
+        "description": "The Rust Programming Language teaches you how to write programs in Rust, one of the most powerful and flexible modern languages. Whether you're an experienced developer or just starting out, this book will teach you how to write fast, safe code, and why Rust's unique approach is so valuable for programming systems and applications.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781593278281"
+          }
+        ],
+        "imageLinks": {
+          "smallThumbnail": "https://books.google.com/books/content?id=TOCgDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+        }
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "KNvFDwAAQBAJ",
+      "etag": "JS6vqu6BYzE",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/KNvFDwAAQBAJ",
+      "volumeInfo": {
+        "title": "Cloud Native Programming with Golang",
+        "authors": [
+          "Mihalis Tsoukalos"
+        ],
+        "publisher": "Packt Publishing",
+        "publishedDate": "2021-03-31",
+        "description": "Go is one of the most effective programming languages to build cloud-native applications, and with Cloud Native Programming with Go, you’ll be able to leverage Go’s best practices for building scalable and reliable distributed systems. This book covers the essential principles of cloud-native application development and the tools required to ensure your applications run reliably in the cloud.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781801073581"
+          }
+        ],
+        "imageLinks": {
+          "smallThumbnail": "https://books.google.com/books/content?id=KNvFDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+        }
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "0DjrDwAAQBAJ",
+      "etag": "KvHjb3mtCPw",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/0DjrDwAAQBAJ",
+      "volumeInfo": {
+        "title": "React Up & Running",
+        "authors": [
+          "Stoyan Stefanov"
+        ],
+        "publisher": "O'Reilly Media",
+        "publishedDate": "2016-06-01",
+        "description": "React Up & Running provides a practical approach to understanding React, an open-source JavaScript library for building user interfaces. Whether you're new to React or looking for guidance on mastering it, this book will give you a solid foundation in writing efficient and well-structured React code.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781491931820"
+          }
+        ],
+        "imageLinks": {
+          "smallThumbnail": "https://books.google.com/books/content?id=0DjrDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+        }
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "qG_dDwAAQBAJ",
+      "etag": "0yy46dVXxZQ",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/qG_dDwAAQBAJ",
+      "volumeInfo": {
+        "title": "Programming Rust",
+        "authors": [
+          "Jim Blandy",
+          "Jason Orendorff"
+        ],
+        "publisher": "O'Reilly Media",
+        "publishedDate": "2017-06-13",
+        "description": "Programming Rust teaches you how to write fast, reliable, and efficient systems code. If you want to write software that's as fast as C and C++ but with less risk of memory errors, Rust is for you. You'll learn about Rust's ownership model, its concurrency features, and how to use its tools to build robust, efficient, and safe applications.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781491927281"
+          }
+        ],
+        "imageLinks": {
+          "smallThumbnail": "https://books.google.com/books/content?id=qG_dDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+        }
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "1cTGMlifEj1JAews4Z6dsBYKRiRjdEaB3",
+      "etag": "Azh3gI2hCB0",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/1cTGMlifEj1JAews4Z6dsBYKRiRjdEaB3",
+      "volumeInfo": {
+        "title": "In-System Programming of HC08 Microcontrollers",
+        "authors": [
+          "John B. Peatman"
+        ],
+        "publisher": "Newnes",
+        "publishedDate": "2006-05-01",
+        "description": "In-System Programming of HC08 Microcontrollers is an essential guide for engineers and developers who work with HC08-based systems. This book will help you understand the tools and techniques for working with the MC68HC08 family of microcontrollers and how to program these systems efficiently and effectively.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781856174601"
+          }
+        ],
+        "imageLinks": {
+          "smallThumbnail": "https://books.google.com/books/content?id=1cTGMlifEj1JAews4Z6dsBYKRiRjdEaB3&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+        }
+      }
+    }
+  ]
+}
