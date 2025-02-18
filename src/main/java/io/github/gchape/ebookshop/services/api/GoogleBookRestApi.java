@@ -13,12 +13,12 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class GoogleBooksAPI implements BookAPI {
+public class GoogleBookRestApi implements BookRestApi {
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
 
     @Autowired
-    public GoogleBooksAPI(ObjectMapper objectMapper, RestTemplate restTemplate) {
+    public GoogleBookRestApi(ObjectMapper objectMapper, RestTemplate restTemplate) {
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;
     }
@@ -26,42 +26,42 @@ public class GoogleBooksAPI implements BookAPI {
     @Override
     public List<Book> fetch(int count) {
         String url = "https://www.googleapis.com/books/v1/volumes?q=programming&maxResults=" + count;
-        var jsonResponse = restTemplate.getForObject(url, String.class);
+        var json = restTemplate.getForObject(url, String.class);
 
-        return mapResponseToBooks(jsonResponse);
+        return mapJsonToBooks(json);
     }
 
     @Override
     public List<Book> searchByISBN(String isbn) {
         String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
-        String jsonResponse = fetch(url);
+        String json = fetch(url);
 
-        return mapResponseToBooks(jsonResponse);
+        return mapJsonToBooks(json);
     }
 
     @Override
     public List<Book> searchByAuthor(String author) {
         String url = "https://www.googleapis.com/books/v1/volumes?q=inauthor:" + author;
-        String jsonResponse = fetch(url);
+        String json = fetch(url);
 
-        return mapResponseToBooks(jsonResponse);
+        return mapJsonToBooks(json);
     }
 
     @Override
     public List<Book> searchByTitle(String title) {
         String url = "https://www.googleapis.com/books/v1/volumes?q=intitle:" + title;
-        String jsonResponse = fetch(url);
+        String json = fetch(url);
 
-        return mapResponseToBooks(jsonResponse);
+        return mapJsonToBooks(json);
     }
 
     private String fetch(String url) {
         return restTemplate.getForObject(url, String.class);
     }
 
-    private List<Book> mapResponseToBooks(String jsonResponse) {
+    public List<Book> mapJsonToBooks(String json) {
         try {
-            JsonNode rootNode = objectMapper.readTree(jsonResponse);
+            JsonNode rootNode = objectMapper.readTree(json);
             JsonNode itemsNode = rootNode.path("items");
             List<Book> books = new ArrayList<>();
 

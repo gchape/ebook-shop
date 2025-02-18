@@ -1,13 +1,79 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <title>Home</title>
 </head>
 <body>
+<nav class="navbar">
+    <ul class="navbar-left">
+        <li><a th:href="@{/}">Home</a></li>
+    </ul>
+    <ul class="navbar-right">
+        <li><a th:href="@{/signup}">Sign Up</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+        <li class="icon-container"><a th:href="@{/cart}" class="icon"></a></li>
+    </ul>
+</nav>
 
+<main>
+    <div class="content-wrapper">
+        <div class="search-bar-container"></div>
+
+        <div class="sidebar">
+            <div class="newsletter-section">
+                <div class="newsletter-header">
+                    <div>
+                        <img src="https://image.ebooks.com/ebooks_netcore/images/icons/sign-up.png"
+                             alt="Sign up for our newsletter">
+                    </div>
+                    <div><h5>Sign up for our&nbsp;newsletter</h5></div>
+                </div>
+                <div class="newsletter-subheading">
+                    <h5>Specials, new title alerts and more!</h5>
+                </div>
+                <form action="" method="post">
+                    <div>
+                        <input type="email" placeholder="Your email address" name="email">
+                        <button type="submit">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="categories-section">
+                <h3>Popular Categories</h3>
+                <div class="category-group">
+                    <h4>Body, Mind & Spirit</h4>
+                    <h4>Business</h4>
+                    <h4>Computers</h4>
+                    <h4>Health & Fitness</h4>
+                    <h4>History</h4>
+                    <h4>Religion</h4>
+                    <h4>Science</h4>
+                </div>
+
+                <h3>Fiction</h3>
+                <div class="category-group">
+                    <h4>Children's Fiction</h4>
+                    <h4>Comics & Graphic Novels</h4>
+                    <h4>Crime</h4>
+                    <h4>Fantasy</h4>
+                    <h4>General Fiction</h4>
+                    <h4>Literary</h4>
+                    <h4>Romance</h4>
+                    <h4>Science Fiction</h4>
+                    <h4>Thrillers</h4>
+                    <h4>Young Adult Fiction</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-container"></div>
+    </div>
+</main>
 </body>
 </html>

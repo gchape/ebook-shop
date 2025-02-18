@@ -4,7 +4,7 @@ import io.github.gchape.ebookshop.entities.Book;
 
 import java.util.List;
 
-public interface BookAPI {
+public interface BookRestApi {
     List<Book> fetch(int count);
 
     List<Book> searchByISBN(String ISBN);
@@ -12,4 +12,6 @@ public interface BookAPI {
     List<Book> searchByAuthor(String author);
 
     List<Book> searchByTitle(String title);
+
+    List<Book> mapJsonToBooks(String json);
 }

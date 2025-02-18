@@ -1,8 +1,8 @@
 package io.github.gchape.ebookshop.servlets;
 
 import io.github.gchape.ebookshop.entities.Book;
-import io.github.gchape.ebookshop.services.api.BookAPI;
-import io.github.gchape.ebookshop.services.book.BookService;
+import io.github.gchape.ebookshop.services.api.BookRestApi;
+import io.github.gchape.ebookshop.services.dao.IEntityManager;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,6 +15,9 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 @WebServlet("")
@@ -24,16 +27,22 @@ public class HomeServlet extends HttpServlet {
     @Autowired
     private TemplateEngine templateEngine;
     @Autowired
-    private BookAPI bookAPI;
+    private BookRestApi bookAPI;
     @Autowired
-    private BookService bookService;
+    private IEntityManager<Book> bookService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
-//        this.books = bookAPI.fetch(5);
-//        this.books.forEach(bookService::save);
+        try {
+            var json = Files.readString(Path.of(getClass().getResource("/book-data.txt").toURI()));
+
+            var books = bookAPI.mapJsonToBooks(json);
+            books.forEach(bookService::save);
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

@@ -1,7 +1,9 @@
 package io.github.gchape.ebookshop.servlets;
 
 import io.github.gchape.ebookshop.entities.User;
-import io.github.gchape.ebookshop.services.user.UserServiceEMImpl;
+import io.github.gchape.ebookshop.services.dao.IEntityManager;
+import io.github.gchape.ebookshop.services.dao.user.UserService;
+import io.github.gchape.ebookshop.utils.Unique100k;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,11 +15,11 @@ import java.io.IOException;
 
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
-    private final UserServiceEMImpl serviceDao;
+    private final IEntityManager<User> userService;
 
     @Autowired
-    public SignupServlet(UserServiceEMImpl serviceDao) {
-        this.serviceDao = serviceDao;
+    public SignupServlet(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -27,13 +29,14 @@ public class SignupServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        var firstName = req.getParameter("firstname").trim();
-        var lastName = req.getParameter("lastname").trim();
+        var firstName = req.getParameter("firstName").trim();
+        var lastName = req.getParameter("lastName").trim();
         var password = req.getParameter("password").trim();
         var email = req.getParameter("email").trim();
+        String username = Unique100k.nextString();
 
-        serviceDao.save(new User(firstName, lastName, email, password));
+        userService.save(new User(username, firstName, lastName, email, password));
 
-        resp.sendRedirect("/home");
+        resp.sendRedirect("/");
     }
 }

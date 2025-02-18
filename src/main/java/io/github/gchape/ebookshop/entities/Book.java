@@ -18,16 +18,7 @@ public class Book {
     @Column(name = "small_thumbnail", nullable = false)
     private String smallThumbnail;
 
-    public Book(String isbn, String title, String publishedDate, String publisher, String smallThumbnail) {
-        this.isbn = isbn;
-        this.title = title;
-        this.publishedDate = publishedDate;
-        this.publisher = publisher;
-        this.smallThumbnail = smallThumbnail;
-    }
-
     public Book() {
-
     }
 
     public String getIsbn() {
