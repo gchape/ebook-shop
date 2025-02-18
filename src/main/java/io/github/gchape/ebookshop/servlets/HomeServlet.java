@@ -32,8 +32,8 @@ public class HomeServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
-        this.books = bookAPI.fetch(5);
-        this.books.forEach(bookService::save);
+//        this.books = bookAPI.fetch(5);
+//        this.books.forEach(bookService::save);
     }
 
     @Override
