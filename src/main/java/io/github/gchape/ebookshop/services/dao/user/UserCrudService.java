@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UserService implements IEntityManager<User> {
+public class UserCrudService implements IEntityManager<User> {
     private final EntityManager entityManager;
 
     @Autowired
-    public UserService(EntityManager entityManager) {
+    public UserCrudService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

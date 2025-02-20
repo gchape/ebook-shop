@@ -23,18 +23,18 @@
 <main>
     <div class="content-wrapper">
         <div class="book-suggestions">
-            <h1 th:text="${param.genre} ?: 'History'"/>
+            <h1 th:text="${queryBooksSubject}"/>
             <div class="book-card-group">
-                <div class="book-card" th:each="b : ${genreBooks}" th:object="${b}">
+                <div class="book-card" th:each="b : ${queryBooks}" th:object="${b}">
                     <img th:src="*{getThumbnail()}" alt="book-thumbnail">
                     <h2 th:text="*{getTitle()}"/>
                     <p th:text="'US$' + *{getPrice()}"/>
                 </div>
             </div>
 
-            <h1>Spring Boot</h1>
+            <h1 th:text="${advertisementBooksSubject}"/>
             <div class="book-card-group">
-                <div class="book-card" th:each="b : ${springBootBooks}" th:object="${b}">
+                <div class="book-card" th:each="b : ${advertisementBooks}" th:object="${b}">
                     <img th:src="*{getThumbnail()}" alt="book-thumbnail">
                     <h2 th:text="*{getTitle()}"/>
                     <p th:text="'US$' + *{getPrice()}"/>
@@ -69,21 +69,21 @@
             <div class="categories-section">
                 <h3>Popular Categories</h3>
                 <form class="category-group" method="get">
-                    <input type="submit" name="genre" value="Programming">
-                    <input type="submit" name="genre" value="Business">
-                    <input type="submit" name="genre" value="History">
-                    <input type="submit" name="genre" value="Religion">
-                    <input type="submit" name="genre" value="Science">
+                    <input type="submit" name="subject" value="Programming">
+                    <input type="submit" name="subject" value="Business">
+                    <input type="submit" name="subject" value="History">
+                    <input type="submit" name="subject" value="Religion">
+                    <input type="submit" name="subject" value="Science">
                 </form>
 
                 <h3>Fiction</h3>
                 <form class="category-group" method="get">
-                    <input type="submit" name="genre" value="Crime">
-                    <input type="submit" name="genre" value="Fantasy">
-                    <input type="submit" name="genre" value="Literary">
-                    <input type="submit" name="genre" value="Romance">
-                    <input type="submit" name="genre" value="Science Fiction">
-                    <input type="submit" name="genre" value="Thrillers">
+                    <input type="submit" name="subject" value="Crime">
+                    <input type="submit" name="subject" value="Fantasy">
+                    <input type="submit" name="subject" value="Literary">
+                    <input type="submit" name="subject" value="Romance">
+                    <input type="submit" name="subject" value="Science Fiction">
+                    <input type="submit" name="subject" value="Thrillers">
                 </form>
             </div>
         </div>

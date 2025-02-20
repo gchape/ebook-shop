@@ -1,9 +1,7 @@
 package io.github.gchape.ebookshop.servlets;
 
 import io.github.gchape.ebookshop.entities.Book;
-import io.github.gchape.ebookshop.services.api.BookAPI;
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
+import io.github.gchape.ebookshop.services.dao.book.BookSqlService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,36 +13,26 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
     @Autowired
     private TemplateEngine templateEngine;
     @Autowired
-    private BookAPI bookAPI;
-
-    private List<Book> genreBooks;
-    private List<Book> springBootBooks;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-
-        genreBooks = bookAPI.searchByGenre("history", Optional.empty());
-        springBootBooks = bookAPI.searchByTitle("spring boot", Optional.empty());
-    }
+    private BookSqlService bookSqlService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         var ctx = new WebContext(JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp));
 
-        if (req.getParameter("genre") != null) {
-            genreBooks = bookAPI.searchByGenre(req.getParameter("genre").toLowerCase(), Optional.empty());
-        }
+        List<Book> advertisementBooks = bookSqlService.queryByTitle("Spring Boot");
+        ctx.setVariable("advertisementBooksSubject", "Spring Boot");
+        ctx.setVariable("advertisementBooks", advertisementBooks);
 
-        ctx.setVariable("genreBooks", genreBooks);
-        ctx.setVariable("springBootBooks", springBootBooks);
+        String subject = req.getParameter("subject") == null ? "History" : req.getParameter("subject");
+        List<Book> query = bookSqlService.queryBySubject(subject);
+        ctx.setVariable("queryBooksSubject", subject);
+        ctx.setVariable("queryBooks", query);
 
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");

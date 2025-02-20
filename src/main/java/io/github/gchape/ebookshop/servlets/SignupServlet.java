@@ -2,7 +2,7 @@ package io.github.gchape.ebookshop.servlets;
 
 import io.github.gchape.ebookshop.entities.User;
 import io.github.gchape.ebookshop.services.dao.IEntityManager;
-import io.github.gchape.ebookshop.services.dao.user.UserService;
+import io.github.gchape.ebookshop.services.dao.user.UserCrudService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,11 +14,11 @@ import java.io.IOException;
 
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
-    private final IEntityManager<User> userService;
+    private final IEntityManager<User> userCrudService;
 
     @Autowired
-    public SignupServlet(UserService userService) {
-        this.userService = userService;
+    public SignupServlet(UserCrudService userCrudService) {
+        this.userCrudService = userCrudService;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SignupServlet extends HttpServlet {
         var password = req.getParameter("password").trim();
         var email = req.getParameter("email").trim();
 
-        userService.save(new User(firstName, lastName, email, password));
+        userCrudService.save(new User(firstName, lastName, email, password));
 
         resp.sendRedirect("/");
     }
