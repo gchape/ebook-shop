@@ -31,8 +31,7 @@ EbookShop/
 │-- pom.xml            # Maven dependencies
 ```
 ## ER model
-![unnamed0](https://github.com/user-attachments/assets/04a9c833-05bc-4f12-adba-f6bb054aa5c8)
-
+![ebook_db](https://github.com/user-attachments/assets/37f6a063-4f97-48ef-94dd-a89e84a2b9e7)
 
 ## Setup and Installation
 ### Prerequisites
