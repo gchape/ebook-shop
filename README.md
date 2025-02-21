@@ -73,5 +73,5 @@ EbookShop/
 Feel free to fork the repository and submit pull requests for improvements.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the GNU General Public License.
 
