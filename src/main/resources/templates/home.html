@@ -11,11 +11,15 @@
 <body>
 <nav class="navbar">
     <ul class="navbar-left">
-        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/}" class="link">Home</a></li>
     </ul>
     <ul class="navbar-right">
-        <li><a th:href="@{/signup}">Sign Up</a></li>
-        <li><a th:href="@{/login}">Login</a></li>
+        <li th:if="${session.user == null}"><a th:href="@{/signup}" class="link">Sign Up</a></li>
+        <li th:if="${session.user == null}"><a th:href="@{/login}" class="link">Login</a></li>
+
+        <li th:unless="${session.user == null}"><a th:text="${session.user}" class="link user"/></li>
+        <li th:unless="${session.user == null}"><a th:href="@{/logout}" class="link">Logout</a></li>
+
         <li class="icon-container"><a th:href="@{/cart}" class="icon"></a></li>
     </ul>
 </nav>
@@ -61,7 +65,7 @@
                 <form action="" method="post">
                     <div>
                         <input type="email" placeholder="Your email address" name="email">
-                        <button type="submit">Sign Up</button>
+                        <button type="submit" disabled>Sign Up</button>
                     </div>
                 </form>
             </div>

@@ -18,7 +18,7 @@ public class BookSqlService implements IBookSqlService {
     }
 
     @Override
-    public List<Book> queryBySubject(String subjectName) {
+    public List<Book> queryBookBySubject(String subjectName) {
         var query = entityManager.createQuery(
                 "select b from Book b where lower(b.subject.subjectName)=lower(:subjectName)",
                 Book.class
@@ -30,7 +30,7 @@ public class BookSqlService implements IBookSqlService {
     }
 
     @Override
-    public List<Book> queryByTitle(String title) {
+    public List<Book> queryBookByTitle(String title) {
         var query = entityManager.createQuery("select b from Book b where b.title like :title", Book.class);
 
         return query

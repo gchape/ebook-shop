@@ -18,7 +18,7 @@ public class AuthorSqlService implements IAuthorSqlService {
     }
 
     @Override
-    public Optional<Author> queryByAuthorName(String authorName) {
+    public Optional<Author> queryAuthorByName(String authorName) {
         var query = entityManager.createQuery("select a from Author a where lower(a.name)=lower(:authorName)", Author.class);
 
         return query.setParameter("authorName", authorName)

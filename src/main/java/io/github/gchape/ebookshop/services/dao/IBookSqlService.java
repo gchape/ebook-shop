@@ -5,7 +5,7 @@ import io.github.gchape.ebookshop.entities.Book;
 import java.util.List;
 
 public interface IBookSqlService {
-    List<Book> queryBySubject(String subjectName);
+    List<Book> queryBookBySubject(String subjectName);
 
-    List<Book> queryByTitle(String title);
+    List<Book> queryBookByTitle(String title);
 }

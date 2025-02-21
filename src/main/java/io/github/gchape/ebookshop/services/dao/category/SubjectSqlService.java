@@ -18,7 +18,7 @@ public class SubjectSqlService implements ISubjectSqlService {
     }
 
     @Override
-    public Optional<Subject> queryBySubjectName(String subjectName) {
+    public Optional<Subject> querySubjectByName(String subjectName) {
         var query = entityManager.createQuery("select s from Subject s where lower(s.subjectName)=lower(:subjectName)", Subject.class);
 
         return query.setParameter("subjectName", subjectName)

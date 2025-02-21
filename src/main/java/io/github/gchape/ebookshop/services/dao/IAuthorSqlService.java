@@ -5,5 +5,5 @@ import io.github.gchape.ebookshop.entities.Author;
 import java.util.Optional;
 
 public interface IAuthorSqlService {
-    Optional<Author> queryByAuthorName(String authorName);
+    Optional<Author> queryAuthorByName(String authorName);
 }

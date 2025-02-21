@@ -25,12 +25,12 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         var ctx = new WebContext(JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp));
 
-        List<Book> advertisementBooks = bookSqlService.queryByTitle("Spring Boot");
+        List<Book> advertisementBooks = bookSqlService.queryBookByTitle("Spring Boot");
         ctx.setVariable("advertisementBooksSubject", "Spring Boot");
         ctx.setVariable("advertisementBooks", advertisementBooks);
 
         String subject = req.getParameter("subject") == null ? "History" : req.getParameter("subject");
-        List<Book> query = bookSqlService.queryBySubject(subject);
+        List<Book> query = bookSqlService.queryBookBySubject(subject);
         ctx.setVariable("queryBooksSubject", subject);
         ctx.setVariable("queryBooks", query);
 

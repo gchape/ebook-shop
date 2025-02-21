@@ -16,26 +16,28 @@ body {
 
 .wrapper {
   position: relative;
-  max-width: 430px;
+  max-width: 450px;
   width: 100%;
   background: #fff;
-  padding: 34px;
-  border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 .wrapper h2 {
-  position: relative;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
   color: #333;
+  margin-bottom: 20px;
 }
 .wrapper h2::before {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 28px;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+  height: 4px;
+  width: 40px;
   border-radius: 12px;
   background: #02537a;
 }
@@ -43,39 +45,46 @@ body {
   margin-top: 30px;
 }
 .wrapper form .input-group {
-  height: 52px;
-  margin: 18px 0;
+  height: 50px;
+  margin: 15px 0;
 }
 .wrapper form .input-group input {
   height: 100%;
   width: 100%;
   outline: none;
-  padding: 0 15px;
-  font-size: 17px;
+  padding: 0 18px;
+  font-size: 16px;
   font-weight: 400;
   color: #333;
   border: 1.5px solid #cad6de;
-  border-bottom-width: 2.5px;
-  border-radius: 6px;
+  border-radius: 8px;
   transition: all 0.3s ease;
 }
 .wrapper form .input-group input:focus, .wrapper form .input-group input:valid {
   border-color: #f2f7fb;
 }
 .wrapper form .input-group.button input {
+  height: 50px;
+  font-size: 16px;
   color: #fff;
   letter-spacing: 1px;
   border: none;
   background: #02537a;
   cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 .wrapper form .input-group.button input:hover {
-  opacity: 0.8;
+  background-color: #017288;
+}
+.wrapper form .text {
+  margin-top: 20px;
 }
 .wrapper form .text h3 {
   color: #333;
-  width: 100%;
-  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 10px;
 }
 .wrapper form .text h3 a {
   color: #02537a;
@@ -84,15 +93,5 @@ body {
 .wrapper form .text h3 a:hover {
   text-decoration: underline;
 }
-.wrapper form .policy {
-  display: flex;
-  align-items: center;
-}
-.wrapper form h3 {
-  color: #707070;
-  font-size: 14px;
-  font-weight: 500;
-  margin-left: 10px;
-}
 
-/*# sourceMappingURL=signup.css.map */
+/*# sourceMappingURL=login.css.map */

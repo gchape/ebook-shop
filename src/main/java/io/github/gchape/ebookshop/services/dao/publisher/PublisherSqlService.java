@@ -18,7 +18,7 @@ public class PublisherSqlService implements IPublisherSqlService {
     }
 
     @Override
-    public Optional<Publisher> queryByPublisherName(String publisherName) {
+    public Optional<Publisher> getPublisherByName(String publisherName) {
         var query = entityManager.createQuery("select p from Publisher p where lower(p.name)=lower(:publisherName)", Publisher.class);
 
         return query.setParameter("publisherName", publisherName)

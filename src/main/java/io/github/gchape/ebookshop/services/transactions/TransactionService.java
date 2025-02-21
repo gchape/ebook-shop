@@ -42,7 +42,7 @@ public class TransactionService {
 
     @Transactional
     public Author persistAuthor(Author author) {
-        Optional<Author> existingAuthor = authorSqlService.queryByAuthorName(author.getName());
+        Optional<Author> existingAuthor = authorSqlService.queryAuthorByName(author.getName());
 
         if (existingAuthor.isEmpty()) {
             entityManager.persist(author);
@@ -54,7 +54,7 @@ public class TransactionService {
 
     @Transactional
     public Publisher persistPublisher(Publisher publisher) {
-        Optional<Publisher> existingPublisher = publisherSqlService.queryByPublisherName(publisher.getName());
+        Optional<Publisher> existingPublisher = publisherSqlService.getPublisherByName(publisher.getName());
 
         if (existingPublisher.isEmpty()) {
             entityManager.persist(publisher);
@@ -66,7 +66,7 @@ public class TransactionService {
 
     @Transactional
     public Subject persistSubject(Subject subject) {
-        Optional<Subject> existingCategory = categorySqlService.queryBySubjectName(subject.getSubjectName());
+        Optional<Subject> existingCategory = categorySqlService.querySubjectByName(subject.getSubjectName());
 
         if (existingCategory.isEmpty()) {
             entityManager.persist(subject);

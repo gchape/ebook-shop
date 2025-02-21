@@ -3,6 +3,8 @@
 $primary-color: #f2f7fb;
 $secondary-color: #02537a;
 $input-border-color: #cad6de;
+$button-background: #02537a;
+$button-hover: #017288;
 
 * {
   margin: 0;
@@ -21,26 +23,28 @@ body {
 
 .wrapper {
   position: relative;
-  max-width: 430px;
+  max-width: 450px;
   width: 100%;
   background: #fff;
-  padding: 34px;
-  border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
 
   h2 {
-    position: relative;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
     color: #333;
+    margin-bottom: 20px;
 
     &::before {
       content: '';
       position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      width: 28px;
+      left: 50%;
+      bottom: -5px;
+      transform: translateX(-50%);
+      height: 4px;
+      width: 40px;
       border-radius: 12px;
       background: $secondary-color;
     }
@@ -50,20 +54,19 @@ body {
     margin-top: 30px;
 
     .input-group {
-      height: 52px;
-      margin: 18px 0;
+      height: 50px;
+      margin: 15px 0;
 
       input {
         height: 100%;
         width: 100%;
         outline: none;
-        padding: 0 15px;
-        font-size: 17px;
+        padding: 0 18px;
+        font-size: 16px;
         font-weight: 400;
         color: #333;
         border: 1.5px solid $input-border-color;
-        border-bottom-width: 2.5px;
-        border-radius: 6px;
+        border-radius: 8px;
         transition: all 0.3s ease;
 
         &:focus,
@@ -75,23 +78,30 @@ body {
 
     .input-group.button {
       input {
+        height: 50px;
+        font-size: 16px;
         color: #fff;
         letter-spacing: 1px;
         border: none;
-        background: #02537a;
+        background: $button-background;
         cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s ease;
 
         &:hover {
-          opacity: 0.8;
+          background-color: $button-hover;
         }
       }
     }
 
     .text {
+      margin-top: 20px;
+
       h3 {
         color: #333;
-        width: 100%;
-        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 10px;
 
         a {
           color: $secondary-color;
@@ -103,17 +113,5 @@ body {
         }
       }
     }
-  }
-
-  form .policy {
-    display: flex;
-    align-items: center;
-  }
-
-  form h3 {
-    color: #707070;
-    font-size: 14px;
-    font-weight: 500;
-    margin-left: 10px;
   }
 }
