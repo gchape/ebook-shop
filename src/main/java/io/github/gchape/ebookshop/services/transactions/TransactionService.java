@@ -2,11 +2,11 @@ package io.github.gchape.ebookshop.services.transactions;
 
 import io.github.gchape.ebookshop.entities.Author;
 import io.github.gchape.ebookshop.entities.Book;
-import io.github.gchape.ebookshop.entities.Subject;
 import io.github.gchape.ebookshop.entities.Publisher;
-import io.github.gchape.ebookshop.services.dao.author.AuthorSqlService;
-import io.github.gchape.ebookshop.services.dao.category.SubjectSqlService;
-import io.github.gchape.ebookshop.services.dao.publisher.PublisherSqlService;
+import io.github.gchape.ebookshop.entities.Subject;
+import io.github.gchape.ebookshop.services.dao.IAuthorSqlService;
+import io.github.gchape.ebookshop.services.dao.IPublisherSqlService;
+import io.github.gchape.ebookshop.services.dao.ISubjectSqlService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -19,16 +19,16 @@ import java.util.Optional;
 public class TransactionService {
 
     private final EntityManager entityManager;
-    private final AuthorSqlService authorSqlService;
-    private final PublisherSqlService publisherSqlService;
-    private final SubjectSqlService categorySqlService;
+    private final IAuthorSqlService authorSqlService;
+    private final IPublisherSqlService publisherSqlService;
+    private final ISubjectSqlService subjectSqlService;
 
     @Autowired
-    public TransactionService(EntityManager entityManager, AuthorSqlService authorSqlService, PublisherSqlService publisherSqlService, SubjectSqlService categorySqlService) {
+    public TransactionService(EntityManager entityManager, IAuthorSqlService authorSqlService, IPublisherSqlService publisherSqlService, ISubjectSqlService subjectSqlService) {
         this.entityManager = entityManager;
         this.authorSqlService = authorSqlService;
         this.publisherSqlService = publisherSqlService;
-        this.categorySqlService = categorySqlService;
+        this.subjectSqlService = subjectSqlService;
     }
 
     @Transactional
@@ -42,7 +42,7 @@ public class TransactionService {
 
     @Transactional
     public Author persistAuthor(Author author) {
-        Optional<Author> existingAuthor = authorSqlService.queryAuthorByName(author.getName());
+        Optional<Author> existingAuthor = authorSqlService.findByName(author.getName());
 
         if (existingAuthor.isEmpty()) {
             entityManager.persist(author);
@@ -54,7 +54,7 @@ public class TransactionService {
 
     @Transactional
     public Publisher persistPublisher(Publisher publisher) {
-        Optional<Publisher> existingPublisher = publisherSqlService.getPublisherByName(publisher.getName());
+        Optional<Publisher> existingPublisher = publisherSqlService.findByName(publisher.getName());
 
         if (existingPublisher.isEmpty()) {
             entityManager.persist(publisher);
@@ -66,7 +66,7 @@ public class TransactionService {
 
     @Transactional
     public Subject persistSubject(Subject subject) {
-        Optional<Subject> existingCategory = categorySqlService.querySubjectByName(subject.getSubjectName());
+        Optional<Subject> existingCategory = subjectSqlService.findByName(subject.getSubjectName());
 
         if (existingCategory.isEmpty()) {
             entityManager.persist(subject);

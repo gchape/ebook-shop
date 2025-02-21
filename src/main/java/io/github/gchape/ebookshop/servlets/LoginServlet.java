@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
         var email = req.getParameter("email").trim();
         var password = req.getParameter("password").trim();
 
-        var user = userSqlService.queryUserByEmail(email);
+        var user = userSqlService.findByEmail(email);
 
         if (user.isPresent() && BCrypt.checkpw(password, user.get().getPassword())) {
             HttpSession session = req.getSession();
