@@ -4,11 +4,11 @@
 EbookShop is a web-based application for browsing, searching, and managing eBooks. It is built using Spring Boot, Thymeleaf, Servlets, and SCSS for styling. The application allows users to search for books via the Google Books API and manage their selections using a cart feature.
 
 ## Features
-- **Book Listing**: Display books fetched from Google Books API.
-- **Search**: Search for books by title, author, or ISBN.
-- **User Authentication**: Signup and login functionality.
-- **Cart Management**: Add and remove books from the cart.
-- **Server-side Rendering**: Uses Thymeleaf for dynamic HTML rendering.
+- [X] **Book Listing**: Display books fetched from Google Books API. 
+- [ ] **Search**: Search for books by title, author, or ISBN.
+- [X] **User Authentication**: Signup and login functionality.
+- [ ] **Cart Management**: Add and remove books from the cart.
+- [X] **Server-side Rendering**: Uses Thymeleaf for dynamic HTML rendering.
 
 ## Technologies Used
 - **Spring Boot** (Service layer and dependency management)
@@ -25,19 +25,21 @@ EbookShop/
 │   ├── entities/      # Entity classes (Book, User, etc.)
 │   ├── services/      # Service classes (DAO, API integration)
 │   ├── servlets/      # Servlet controllers
+│   ├── utils/         # Utility classes (common functions, helpers, etc.)
 │-- src/main/resources/
 │   ├── templates/     # Thymeleaf templates
 │   ├── static/        # Static assets (CSS, JS, images)
+│   ├── sql/           # SQL dump file and other scripts
 │-- pom.xml            # Maven dependencies
 ```
-## ER model
-![ebook_db](https://github.com/user-attachments/assets/37f6a063-4f97-48ef-94dd-a89e84a2b9e7)
+## Diagram
+<img src="https://github.com/user-attachments/assets/37f6a063-4f97-48ef-94dd-a89e84a2b9e7" width="600" height="800"/>
 
 ## Setup and Installation
 ### Prerequisites
 - Java 17+
 - Maven
-- PostgreSQL (or other configured database)
+- PostgreSQL
 - Spring Web
 - Spring Data JPA
 - Thymeleaf
@@ -50,9 +52,13 @@ EbookShop/
    ```
 2. Configure the database in `application.properties`:
    ```properties
-   spring.datasource.url=jdbc:postgresql://localhost:5432/ebookshop
+   spring.datasource.url=jdbc:postgresql://localhost:5432/your_database
    spring.datasource.username=your_user
    spring.datasource.password=your_password
+   ```
+   Import schema
+   ```
+   psql -U your_user -d your_database -f sql_dump_file
    ```
 3. Build and run the application:
    ```sh
@@ -62,21 +68,6 @@ EbookShop/
    ```
    http://localhost:8080/
    ```
-
-## API Endpoints
-- `GET /` - Home page displaying books
-- `GET /search?query=title` - Search books by title
-- `POST /signup` - Register a new user
-- `POST /signin` - Authenticate user
-- `GET /cart` - View cart
-- `POST /cart/add/{id}` - Add book to cart
-- `POST /cart/remove/{id}` - Remove book from cart
-
-## Styling with SCSS
-SCSS files are located under `src/main/resources/static/css/`. To compile them, use:
-```sh
-sass --watch src/main/resources/static/css:src/main/resources/static/css
-```
 
 ## Contribution
 Feel free to fork the repository and submit pull requests for improvements.
