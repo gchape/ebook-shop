@@ -30,9 +30,9 @@ public class SignupServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        var name = req.getParameter("name").trim();
-        var email = req.getParameter("email").trim();
-        var password = req.getParameter("password").trim();
+        var name = req.getParameter("name");
+        var email = req.getParameter("email");
+        var password = req.getParameter("password");
 
         var salt = BCrypt.gensalt();
         User user = new User(name, email, BCrypt.hashpw(password, salt));

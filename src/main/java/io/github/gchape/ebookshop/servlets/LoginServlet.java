@@ -14,7 +14,6 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
     private final IUserSqlService userSqlService;
 
     @Autowired
@@ -28,7 +27,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         var email = req.getParameter("email").trim();
         var password = req.getParameter("password").trim();
 

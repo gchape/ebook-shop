@@ -16,10 +16,14 @@ import java.util.List;
 
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
+    private final TemplateEngine templateEngine;
+    private final BookSqlService bookSqlService;
+
     @Autowired
-    private TemplateEngine templateEngine;
-    @Autowired
-    private BookSqlService bookSqlService;
+    public HomeServlet(TemplateEngine templateEngine, BookSqlService bookSqlService) {
+        this.templateEngine = templateEngine;
+        this.bookSqlService = bookSqlService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -34,8 +38,7 @@ public class HomeServlet extends HttpServlet {
         ctx.setVariable("queryBooksSubject", subject);
         ctx.setVariable("queryBooks", query);
 
-        resp.setContentType("text/html");
-        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
         try (var writer = resp.getWriter()) {
             writer.println(templateEngine.process("home.html", ctx));
         }
