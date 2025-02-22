@@ -7,7 +7,7 @@ EbookShop is a web-based application for browsing, searching, and managing eBook
 - [X] **Book Listing**: Display books fetched from Google Books API. 
 - [ ] **Search**: Search for books by title, author, or ISBN.
 - [X] **User Authentication**: Signup and login functionality.
-- [ ] **Cart Management**: Add and remove books from the cart.
+- [X] **Cart Management**: Add and remove books from the cart.
 - [X] **Server-side Rendering**: Uses Thymeleaf for dynamic HTML rendering.
 
 ## Technologies Used
