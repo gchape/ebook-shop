@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             synchronized (session) {
-                session.setAttribute("user", username);
+                session.setAttribute("user", username.get());
                 resp.sendRedirect("/");
             }
         } else {

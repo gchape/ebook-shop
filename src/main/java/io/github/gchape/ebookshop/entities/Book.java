@@ -1,7 +1,9 @@
 package io.github.gchape.ebookshop.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -9,24 +11,33 @@ import java.util.Set;
 
 @Entity
 @Table(name = "book")
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "isbn", nullable = false)
     private String isbn;
+
     @Column(name = "title", nullable = false)
     private String title;
+
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
+
     @Column(name = "publish_date", nullable = false)
     private LocalDate publishDate;
+
     @ManyToOne
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
+
     @Column(name = "price", nullable = false)
     private double price;
+
     @Column(name = "thumbnail", nullable = false)
     private String thumbnail;
+
     @ManyToMany
     @JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "isbn"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
@@ -42,6 +53,7 @@ public class Book {
         this.subject = subject;
     }
 
+    @JsonProperty
     public String getIsbn() {
         return isbn;
     }

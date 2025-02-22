@@ -20,10 +20,19 @@ public class Order {
     @JoinColumn(name = "isbn", insertable = false, updatable = false)
     private Book book;
 
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
+
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;
 
     public Order() {
+    }
+
+    public Order(String username, String isbn, int quantity, LocalDate orderDate) {
+        this.id = new OrderId(username, isbn);
+        this.quantity = quantity;
+        this.orderDate = orderDate;
     }
 
     public OrderId getId() {

@@ -11,9 +11,9 @@
 </head>
 <body>
 <div class="cart-container">
-    <h1>Your Books</h1>
+    <h1>Shopping Cart</h1>
     <div class="cart-items">
-        <div th:each="entry : ${session.bookOccurrenceMap}" class="cart-item">
+        <div th:each="entry : ${session.bookQuantityMap}" class="cart-item">
             <div class="cart-item-details">
                 <img th:src="@{${entry.key.getThumbnail()}}" alt="book-thumbnail" class="cart-item-image">
                 <div class="cart-item-info">
@@ -45,34 +45,71 @@
     <div class="cart-total">
         <h3>Total: <span th:text="'$' + ${session.totalPrice}"></span></h3>
     </div>
+
+    <button class="purchase-button"
+            th:onclick="processPayment([[${session.user}]], [[${session.booksIsbnQuantity}]])">Purchase
+    </button>
 </div>
 <script>
-    function updateQuantity(isbn, action) {
-        console.log("updateQuantity");
-        fetch("/cart", {
+    async function updateQuantity(isbn, action) {
+        await fetch("/cart", {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({isbn: isbn, action: action})
-        }).then(response => {
-            window.location.reload();
-        });
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({isbn, action})
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "/cart";
+                } else {
+                    console.error("Failed to update quantity");
+                }
+            })
+            .catch(error => console.error("Error:", error));
     }
 
-    function removeItem(isbn) {
-        console.log("removeItem");
-        fetch("/cart", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({isbn: isbn})
-        }).then(response => {
-            window.location.reload();
-        });
+    async function removeItem(isbn) {
+        try {
+            const response = await fetch("/cart", {
+                method: "DELETE",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({isbn})
+            });
+
+            if (response.ok) {
+                window.location.href = "/cart";
+            } else {
+                console.error("Failed to remove item");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    async function processPayment(user, isbnQuantityMap) {
+        const items = Object.entries(JSON.parse(isbnQuantityMap)).map(entry => ({
+            isbn: entry[0],
+            quantity: entry[1]
+        }));
+
+        if (user === null) {
+            alert("You must be signed in to complete the purchase.");
+            return;
+        }
+
+        await fetch("/payment", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({items: items, user: user})
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "/confirmation";
+                } else {
+                    console.error("Purchase failed");
+                }
+            })
+            .catch(error => console.error("Error:", error));
     }
 </script>
 </body>
 </html>
-

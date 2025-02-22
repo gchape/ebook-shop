@@ -31,6 +31,7 @@ body {
   h1 {
     text-align: center;
     color: $primary-color;
+    font-weight: 500;
     font-size: 2rem;
   }
 
@@ -72,7 +73,7 @@ body {
       h2 {
         font-size: 1.2rem;
         color: $primary-color;
-        font-weight: 600;
+        font-weight: 550;
       }
 
       p {
@@ -80,7 +81,7 @@ body {
         font-size: 0.9rem;
 
         span {
-          font-weight: bold;
+          font-weight: normal;
           color: $primary-color;
         }
       }
@@ -91,7 +92,7 @@ body {
         margin-top: 10px;
 
         button {
-          background-color: $button-bg-color;
+          background-color: #02537a;
           color: white;
           border: none;
           padding: 5px 10px;
@@ -142,7 +143,29 @@ body {
 
     h3 {
       font-size: 1.5rem;
+      font-weight: 500;
       color: $secondary-color;
+    }
+  }
+
+  .purchase-button {
+    display: block;
+    width: 140px;
+    margin: 30px auto 0;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: normal;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: darken($secondary-color, 10%);
+      transform: scale(1.05);
     }
   }
 }

@@ -87,6 +87,53 @@ main {
   grid-template-rows: repeat(3, auto);
   width: 70vw;
 }
+@media (max-width: 1200px) {
+  .content-wrapper .content-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+  .content-wrapper .navbar {
+    padding: 0 20px;
+  }
+  .content-wrapper .sidebar {
+    grid-column: 1;
+    grid-row: 2/-1;
+    min-height: 100vh;
+  }
+  .content-wrapper .content {
+    grid-column: 1/-1;
+    padding: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .content-wrapper .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .content-wrapper .navbar {
+    padding: 0 10px;
+  }
+  .content-wrapper .sidebar {
+    padding: 10px;
+    min-height: 100%;
+  }
+  .content-wrapper .content {
+    padding: 10px;
+  }
+  .content-wrapper .book-card-wrapper {
+    display: block;
+  }
+}
+@media (max-width: 480px) {
+  .content-wrapper .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .content-wrapper .navbar-left, .content-wrapper .navbar-right {
+    flex-direction: column;
+  }
+  .content-wrapper .search-bar {
+    height: 6vh;
+  }
+}
 
 .search-bar {
   grid-row: 1;

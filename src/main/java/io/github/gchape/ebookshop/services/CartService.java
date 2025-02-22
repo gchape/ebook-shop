@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class CartService {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
     private final List<String> booksIsbn = new ArrayList<>();
-
     private final IBookRepository bookRepository;
 
     @Autowired
-    public CartService(IBookRepository bookRepository) {
+    public CartService(ObjectMapper objectMapper, IBookRepository bookRepository) {
+        this.objectMapper = objectMapper;
         this.bookRepository = bookRepository;
     }
 
@@ -38,12 +38,19 @@ public class CartService {
         return requestData.get(key);
     }
 
-    public Map<Book, Long> getBookOccurenceMap() {
-        return booksIsbn.stream().map(bookRepository::findByIsbn).collect(Collectors.groupingBy(book -> book, Collectors.counting()));
+    public Map<Book, Long> getBookQuantityMap() {
+        return booksIsbn
+                .stream()
+                .map(bookRepository::findByIsbn)
+                .collect(Collectors.groupingBy(book -> book, Collectors.counting()));
     }
 
     public BigDecimal getTotalPrice() {
-        return booksIsbn.stream().map(bookRepository::findByIsbn).map(Book::getPrice).map(BigDecimal::valueOf).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return booksIsbn
+                .stream()
+                .map(bookRepository::findByIsbn)
+                .map(Book::getPrice).map(BigDecimal::valueOf)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public void removeAll(HttpServletRequest request) {
@@ -70,9 +77,11 @@ public class CartService {
         try (BufferedReader reader = req.getReader()) {
             StringBuilder sb = new StringBuilder();
             String line;
+
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
+
             String json = sb.toString();
             return objectMapper.readValue(json, new TypeReference<>() {
             });
