@@ -88,7 +88,7 @@ main {
   width: 70vw;
 }
 
-.search-bar-container {
+.search-bar {
   grid-row: 1;
   grid-column: 1/-1;
   height: 8vh;
@@ -178,7 +178,7 @@ main {
   color: #02537a;
 }
 
-.book-suggestions {
+.content {
   grid-column: 2/-1;
   grid-row: 2/-1;
   padding: 0 50px;
@@ -186,7 +186,7 @@ main {
   display: flex;
   flex-flow: column;
 }
-.book-suggestions h1 {
+.content h1 {
   padding: 4px;
   color: #71818f;
   font-size: 1.5em;
@@ -194,45 +194,75 @@ main {
   margin-top: 8px;
   border-bottom: 2px solid #cad6de;
 }
-.book-suggestions .book-card {
+.content .book-card {
   display: flex;
   flex-flow: column;
+  position: relative;
   row-gap: 5px;
   max-width: 110px;
   height: fit-content;
   padding: 10px;
   border-radius: 4px;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
-.book-suggestions .book-card:hover {
-  transform: scale(1.05);
+.content .book-card:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
-.book-suggestions .book-card h2 {
+.content .add-to-cart-btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 10px;
+  right: 10px;
+  background-color: #0288d1;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  color: whitesmoke;
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+.content .add-to-cart-btn:hover {
+  width: 100px;
+  height: 25px;
+  font-size: 1rem;
+  color: #46ab09;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.content .add-to-cart-btn:hover::before {
+  content: "Add to Cart";
+  font-size: 0.7rem;
+  color: whitesmoke;
+}
+.content .add-to-cart-btn .fas.fa-plus {
+  font-size: 1.1rem;
+}
+.content h2 {
   color: #02537a;
   font-size: 0.75rem;
   font-weight: 500;
   margin-bottom: 5px;
 }
-.book-suggestions .book-card p {
+.content p {
   color: #46ab09;
   font-size: 0.75rem;
 }
-.book-suggestions .book-card img {
+.content img {
   width: 100px;
   height: 140px;
   align-self: center;
   margin-bottom: 8px;
   border-radius: 4px;
   box-shadow: 0 3px 10px -2px black;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.book-suggestions .book-card img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.book-card-group {
+.book-card-wrapper {
   width: 100%;
   display: flex;
   column-gap: 40px;

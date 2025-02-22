@@ -1,7 +1,6 @@
 package io.github.gchape.ebookshop.servlets;
 
-import io.github.gchape.ebookshop.entities.Book;
-import io.github.gchape.ebookshop.services.dao.IBookSqlService;
+import io.github.gchape.ebookshop.services.HomeService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,35 +11,31 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
     private final TemplateEngine templateEngine;
-    private final IBookSqlService bookSqlService;
+    private final HomeService homeService;
 
     @Autowired
-    public HomeServlet(TemplateEngine templateEngine, IBookSqlService bookSqlService) {
+    public HomeServlet(TemplateEngine templateEngine, HomeService homeService) {
         this.templateEngine = templateEngine;
-        this.bookSqlService = bookSqlService;
+        this.homeService = homeService;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        var ctx = new WebContext(JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp));
+        var webContext = new WebContext(JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp));
+        var data = homeService.getData(req.getParameter("subject"));
 
-        List<Book> advertisementBooks = bookSqlService.findByTitle("Spring Boot");
-        ctx.setVariable("advertisementBooksSubject", "Spring Boot");
-        ctx.setVariable("advertisementBooks", advertisementBooks);
-
-        String subject = req.getParameter("subject") == null ? "History" : req.getParameter("subject");
-        List<Book> query = bookSqlService.findBySubject(subject);
-        ctx.setVariable("queryBooksSubject", subject);
-        ctx.setVariable("queryBooks", query);
+        webContext.setVariable("advertisementBooksSubject", data.advertisementBooksSubject());
+        webContext.setVariable("advertisementBooks", data.advertisementBooks());
+        webContext.setVariable("requestedBooksSubject", data.requestedBooksSubject());
+        webContext.setVariable("requestedBooks", data.requestedBooks());
 
         resp.setContentType("text/html; charset=UTF-8");
         try (var writer = resp.getWriter()) {
-            writer.println(templateEngine.process("home.html", ctx));
+            writer.println(templateEngine.process("home.html", webContext));
         }
     }
 }

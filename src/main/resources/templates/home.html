@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <title>Home</title>
 </head>
@@ -13,6 +14,7 @@
     <ul class="navbar-left">
         <li><a th:href="@{/}" class="link">Home</a></li>
     </ul>
+
     <ul class="navbar-right">
         <li th:if="${session.user == null}"><a th:href="@{/signup}" class="link">Sign Up</a></li>
         <li th:if="${session.user == null}"><a th:href="@{/login}" class="link">Login</a></li>
@@ -26,10 +28,15 @@
 
 <main>
     <div class="content-wrapper">
-        <div class="book-suggestions">
-            <h1 th:text="${queryBooksSubject}"/>
-            <div class="book-card-group">
-                <div class="book-card" th:each="b : ${queryBooks}" th:object="${b}">
+        <div class="content">
+            <h1 th:text="${requestedBooksSubject}"/>
+            <div class="book-card-wrapper">
+                <div class="book-card" th:each="b : ${requestedBooks}" th:object="${b}">
+                    <button class="add-to-cart-btn"
+                            aria-label="Add to Cart"
+                            th:onclick="addToCart([[*{getIsbn()}]])">
+                        <i class="fas fa-plus"></i>
+                    </button>
                     <img th:src="*{getThumbnail()}" alt="book-thumbnail">
                     <h2 th:text="*{getTitle()}"/>
                     <p th:text="'US$' + *{getPrice()}"/>
@@ -37,8 +44,13 @@
             </div>
 
             <h1 th:text="${advertisementBooksSubject}"/>
-            <div class="book-card-group">
+            <div class="book-card-wrapper">
                 <div class="book-card" th:each="b : ${advertisementBooks}" th:object="${b}">
+                    <button class="add-to-cart-btn"
+                            aria-label="Add to Cart"
+                            th:onclick="addToCart([[*{getIsbn()}]])">
+                        <i class="fas fa-plus"></i>
+                    </button>
                     <img th:src="*{getThumbnail()}" alt="book-thumbnail">
                     <h2 th:text="*{getTitle()}"/>
                     <p th:text="'US$' + *{getPrice()}"/>
@@ -46,7 +58,7 @@
             </div>
         </div>
 
-        <div class="search-bar-container">
+        <div class="search-bar">
 
         </div>
 
@@ -93,5 +105,16 @@
         </div>
     </div>
 </main>
+<script th:inline="javascript">
+    function addToCart(isbn) {
+        fetch("/cart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({isbn: isbn})
+        });
+    }
+</script>
 </body>
 </html>

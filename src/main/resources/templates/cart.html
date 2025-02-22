@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cart</title>
+    <link rel="stylesheet" href="/css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="cart-container">
+    <h1>Your Books</h1>
+    <div class="cart-items">
+        <div th:each="entry : ${session.bookOccurrenceMap}" class="cart-item">
+            <div class="cart-item-details">
+                <img th:src="@{${entry.key.getThumbnail()}}" alt="book-thumbnail" class="cart-item-image">
+                <div class="cart-item-info">
+                    <h2 th:text="${entry.key.getTitle()}"></h2>
+                    <p>ISBN: <span th:text="${entry.key.getIsbn()}"></span></p>
+                    <p>Price: <span th:text="'$' + ${entry.key.getPrice()}"></span></p>
+
+                    <div class="quantity-controls">
+                        <button class="quantity-decrease"
+                                th:onclick="updateQuantity([[${entry.key.getIsbn()}]], 'decrease')">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span class="quantity" th:text="${entry.value}"></span>
+                        <button class="quantity-increase"
+                                th:onclick="updateQuantity([[${entry.key.getIsbn()}]], 'increase')">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <button class="delete-button" th:attr="data-isbn=${entry.key.getIsbn()}"
+                            th:onclick="removeItem([[${entry.key.getIsbn()}]])">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-total">
+        <h3>Total: <span th:text="'$' + ${session.totalPrice}"></span></h3>
+    </div>
+</div>
+<script>
+    function updateQuantity(isbn, action) {
+        console.log("updateQuantity");
+        fetch("/cart", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({isbn: isbn, action: action})
+        }).then(response => {
+            window.location.reload();
+        });
+    }
+
+    function removeItem(isbn) {
+        console.log("removeItem");
+        fetch("/cart", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({isbn: isbn})
+        }).then(response => {
+            window.location.reload();
+        });
+    }
+</script>
+</body>
+</html>
+

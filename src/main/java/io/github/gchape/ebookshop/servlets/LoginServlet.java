@@ -1,24 +1,23 @@
 package io.github.gchape.ebookshop.servlets;
 
-import io.github.gchape.ebookshop.services.dao.IUserSqlService;
+import io.github.gchape.ebookshop.services.LoginService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private final IUserSqlService userSqlService;
+    private final LoginService loginService;
 
     @Autowired
-    public LoginServlet(IUserSqlService userSqlService) {
-        this.userSqlService = userSqlService;
+    public LoginServlet(LoginService loginService) {
+        this.loginService = loginService;
     }
 
     @Override
@@ -30,16 +29,20 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         var email = req.getParameter("email").trim();
         var password = req.getParameter("password").trim();
+        var username = loginService.authenticate(email, password);
 
-        var user = userSqlService.findByEmail(email);
+        if (username.isPresent()) {
+            HttpSession session = req.getSession(false);
+            if (session == null) {
+                session = req.getSession(true);
+            }
 
-        if (user.isPresent() && BCrypt.checkpw(password, user.get().getPassword())) {
-            HttpSession session = req.getSession();
-            session.setAttribute("user", user.get().getUsername());
-
-            resp.sendRedirect("/");
+            synchronized (session) {
+                session.setAttribute("user", username);
+                resp.sendRedirect("/");
+            }
         } else {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Incorrect email or password");
+            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid email or password");
         }
     }
 }

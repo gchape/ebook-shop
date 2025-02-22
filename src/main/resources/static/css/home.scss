@@ -102,7 +102,7 @@ main {
   width: 70vw;
 }
 
-.search-bar-container {
+.search-bar {
   grid-row: 1;
   grid-column: 1 / -1;
   height: 8vh;
@@ -220,7 +220,7 @@ main {
   }
 }
 
-.book-suggestions {
+.content {
   grid-column: 2 / -1;
   grid-row: 2 / -1;
 
@@ -244,7 +244,7 @@ main {
   .book-card {
     display: flex;
     flex-flow: column;
-
+    position: relative;
     row-gap: 5px;
 
     max-width: 110px;
@@ -253,46 +253,84 @@ main {
 
     border-radius: 4px;
 
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: box-shadow 0.3s ease;
 
     &:hover {
-      transform: scale(1.05);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
+  }
 
-    h2 {
-      color: #02537a;
-      font-size: 0.75rem;
-      font-weight: 500;
-      margin-bottom: 5px;
-    }
+  .add-to-cart-btn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 10px;
+    right: 10px;
 
-    p {
-      color: #46ab09;
-      font-size: 0.75rem;
-    }
+    background-color: #0288d1;
+    border-radius: 20px;
 
-    img {
+    width: 20px;
+    height: 20px;
+
+    border: none;
+    color: whitesmoke;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    z-index: 10;
+
+    transition: all 0.3s ease;
+
+    &:hover {
       width: 100px;
-      height: 140px;
+      height: 25px;
+      font-size: 1rem;
+      color: #46ab09;
 
-      align-self: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
 
-      margin-bottom: 8px;
-
-      border-radius: 4px;
-      box-shadow: 0 3px 10px -2px black;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      &::before {
+        content: "Add to Cart";
+        font-size: 0.7rem;
+        color: whitesmoke;
       }
     }
+
+    .fas.fa-plus {
+      font-size: 1.1rem;
+    }
+  }
+
+  h2 {
+    color: #02537a;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  p {
+    color: #46ab09;
+    font-size: 0.75rem;
+  }
+
+  img {
+    width: 100px;
+    height: 140px;
+
+    align-self: center;
+
+    margin-bottom: 8px;
+
+    border-radius: 4px;
+    box-shadow: 0 3px 10px -2px black;
   }
 }
 
-.book-card-group {
+.book-card-wrapper {
   width: 100%;
 
   display: flex;

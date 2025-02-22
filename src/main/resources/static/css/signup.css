@@ -14,7 +14,7 @@ body {
   background: #f2f7fb;
 }
 
-.wrapper {
+.content-wrapper {
   position: relative;
   max-width: 430px;
   width: 100%;
@@ -23,13 +23,13 @@ body {
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-.wrapper h2 {
+.content-wrapper h2 {
   position: relative;
   font-size: 22px;
   font-weight: 600;
   color: #333;
 }
-.wrapper h2::before {
+.content-wrapper h2::before {
   content: "";
   position: absolute;
   left: 0;
@@ -39,14 +39,14 @@ body {
   border-radius: 12px;
   background: #02537a;
 }
-.wrapper form {
+.content-wrapper form {
   margin-top: 30px;
 }
-.wrapper form .input-group {
+.content-wrapper form .input-group {
   height: 52px;
   margin: 18px 0;
 }
-.wrapper form .input-group input {
+.content-wrapper form .input-group input {
   height: 100%;
   width: 100%;
   outline: none;
@@ -59,36 +59,36 @@ body {
   border-radius: 6px;
   transition: all 0.3s ease;
 }
-.wrapper form .input-group input:focus, .wrapper form .input-group input:valid {
+.content-wrapper form .input-group input:focus, .content-wrapper form .input-group input:valid {
   border-color: #f2f7fb;
 }
-.wrapper form .input-group.button input {
+.content-wrapper form .input-group.button input {
   color: #fff;
   letter-spacing: 1px;
   border: none;
   background: #02537a;
   cursor: pointer;
 }
-.wrapper form .input-group.button input:hover {
+.content-wrapper form .input-group.button input:hover {
   opacity: 0.8;
 }
-.wrapper form .text h3 {
+.content-wrapper form .text h3 {
   color: #333;
   width: 100%;
   text-align: center;
 }
-.wrapper form .text h3 a {
+.content-wrapper form .text h3 a {
   color: #02537a;
   text-decoration: none;
 }
-.wrapper form .text h3 a:hover {
+.content-wrapper form .text h3 a:hover {
   text-decoration: underline;
 }
-.wrapper form .policy {
+.content-wrapper form .policy {
   display: flex;
   align-items: center;
 }
-.wrapper form h3 {
+.content-wrapper form h3 {
   color: #707070;
   font-size: 14px;
   font-weight: 500;
