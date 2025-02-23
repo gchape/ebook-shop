@@ -5,7 +5,7 @@ EbookShop is a web-based application for browsing, searching, and managing eBook
 
 ## Features
 - [X] **Book Listing**: Display books fetched from Google Books API. 
-- [ ] **Search**: Search for books by title, author, or ISBN.
+- [X] **Payment Mock**
 - [X] **User Authentication**: Signup and login functionality.
 - [X] **Cart Management**: Add and remove books from the cart.
 - [X] **Server-side Rendering**: Uses Thymeleaf for dynamic HTML rendering.
@@ -34,7 +34,7 @@ EbookShop/
 │-- pom.xml            # Maven dependencies
 ```
 ## Diagram
-![public](https://github.com/user-attachments/assets/874de8d6-6c40-40c3-84e6-8c1b0d536508)
+![public (1)](https://github.com/user-attachments/assets/2eedcd53-bf68-4adf-b4ae-37b0e2f24c36)
 
 ## Setup and Installation
 ### Prerequisites
