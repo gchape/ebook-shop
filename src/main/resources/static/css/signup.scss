@@ -3,12 +3,19 @@
 $primary-color: #f2f7fb;
 $secondary-color: #02537a;
 $input-border-color: #cad6de;
+$button-background: $secondary-color;
+$button-hover: #017288;
+$border-radius: 8px;
+$input-height: 50px;
+$max-width: 430px;
+$font-size: 16px;
+$small-font-size: 14px;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -16,104 +23,135 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $primary-color;
+  background-color: $primary-color;
 }
 
-.content-wrapper {
-  position: relative;
-  max-width: 430px;
-  width: 100%;
+.container {
   background: #fff;
-  padding: 34px;
-  border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  max-width: $max-width;
+  width: 100%;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
 
   h2 {
-    position: relative;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
     color: #333;
+    margin-bottom: 20px;
+    position: relative;
 
     &::before {
       content: '';
       position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      width: 28px;
+      left: 50%;
+      bottom: -8px;
+      transform: translateX(-50%);
+      height: 4px;
+      width: 40px;
       border-radius: 12px;
-      background: $secondary-color;
+      background-color: $secondary-color;
     }
   }
 
-  form {
-    margin-top: 30px;
+  .form-group {
+    margin-bottom: 20px;
+    position: relative;
 
-    .input-group {
-      height: 52px;
-      margin: 18px 0;
+    input {
+      width: 100%;
+      height: $input-height;
+      padding: 0 16px;
+      font-size: $font-size;
+      color: #333;
+      border: 1.5px solid $input-border-color;
+      border-radius: $border-radius;
+      outline: none;
+      transition: all 0.3s ease;
 
-      input {
-        height: 100%;
-        width: 100%;
-        outline: none;
-        padding: 0 15px;
-        font-size: 17px;
-        font-weight: 400;
-        color: #333;
-        border: 1.5px solid $input-border-color;
-        border-bottom-width: 2.5px;
-        border-radius: 6px;
-        transition: all 0.3s ease;
-
-        &:focus,
-        &:valid {
-          border-color: $primary-color;
-        }
+      &:focus,
+      &:valid {
+        border-color: $primary-color;
       }
     }
 
-    .input-group.button {
-      input {
-        color: #fff;
-        letter-spacing: 1px;
-        border: none;
-        background: #02537a;
-        cursor: pointer;
-
-        &:hover {
-          opacity: 0.8;
-        }
-      }
-    }
-
-    .text {
-      h3 {
-        color: #333;
-        width: 100%;
-        text-align: center;
-
-        a {
-          color: $secondary-color;
-          text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
+    .error-message {
+      position: absolute;
+      bottom: -18px;
+      left: 16px;
+      color: red;
+      font-size: $small-font-size;
     }
   }
 
-  form .policy {
+  .checkbox-group {
     display: flex;
     align-items: center;
+    padding: 0 2px;
+    margin-top: 20px;
+    font-size: $small-font-size;
+    color: #555;
+
+    input {
+      margin-right: 8px;
+    }
   }
 
-  form h3 {
-    color: #707070;
+  .button-group {
+    margin-top: 30px;
+
+    .submit-button {
+      width: 100%;
+      height: $input-height;
+      background: $button-background;
+      color: #fff;
+      font-size: $font-size;
+      border: none;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: $button-hover;
+      }
+    }
+  }
+
+  .text-group {
+    margin-top: 20px;
+    font-size: $small-font-size;
+
+    a {
+      color: $secondary-color;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .form-group input {
     font-size: 14px;
-    font-weight: 500;
-    margin-left: 10px;
+  }
+
+  .checkbox-group {
+    font-size: 12px;
+  }
+
+  .button-group .submit-button {
+    font-size: 14px;
   }
 }

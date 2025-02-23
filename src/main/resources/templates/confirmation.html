@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -79,9 +79,9 @@
     </div>
 
     <div class="details">
-        <p><strong>Order Number:</strong> #123456789</p>
-        <p><strong>Payment Date:</strong> February 23, 2025</p>
-        <p><strong>Amount:</strong> $59.99</p>
+        <p><strong>Order Number:</strong> # <span th:text="${orderNumber}"></span></p>
+        <p><strong>Payment Date:</strong> <span th:text="${paymentDate}"></span></p>
+        <p><strong>Amount:</strong> <span th:text="${totalPrice}"></span></p>
     </div>
 
     <a href="/" class="button">Return to Home</a>

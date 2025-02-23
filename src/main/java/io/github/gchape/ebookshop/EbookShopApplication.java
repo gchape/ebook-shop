@@ -1,12 +1,13 @@
 package io.github.gchape.ebookshop;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.SpringServletContainerInitializer;
 
 @SpringBootApplication(scanBasePackages = {
@@ -23,8 +24,9 @@ public class EbookShopApplication extends SpringServletContainerInitializer {
 
     @Bean
     public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new Jdk8Module());
-        return objectMapper;
+        return new Jackson2ObjectMapperBuilder()
+                .indentOutput(true)
+                .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .build();
     }
 }

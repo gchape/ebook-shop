@@ -6,8 +6,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class SignupService {
     private final IUserRepository userRepository;
@@ -17,15 +15,15 @@ public class SignupService {
         this.userRepository = userRepository;
     }
 
-    public Optional<String> registerUser(String name, String email, String password) {
-        if (userRepository.findByEmail(email) != null) {
-            return Optional.empty();
+    public String registerUser(String name, String email, String password) {
+        if (userRepository.findByEmail(email) == null) {
+            var hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            var user = new User(name, email, hashedPassword);
+            userRepository.save(user);
+
+            return user.getUsername();
+        } else {
+            return null;
         }
-
-        var hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        var user = new User(name, email, hashedPassword);
-        userRepository.save(user);
-
-        return Optional.of(user.getUsername());
     }
 }

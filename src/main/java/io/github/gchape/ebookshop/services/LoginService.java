@@ -5,8 +5,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class LoginService {
     private final IUserRepository userRepository;
@@ -16,13 +14,13 @@ public class LoginService {
         this.userRepository = userRepository;
     }
 
-    public Optional<String> authenticate(String email, String password) {
+    public String authenticate(String email, String password) {
         var user = userRepository.findByEmail(email);
 
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-            return Optional.of(user.getUsername());
+            return user.getUsername();
         }
 
-        return Optional.empty();
+        return null;
     }
 }

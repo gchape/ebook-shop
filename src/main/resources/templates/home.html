@@ -2,109 +2,94 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description"
+          content="Browse and purchase a wide selection of books. Sign up for newsletters and stay updated with the latest book titles.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
     <title>Home</title>
 </head>
 <body>
-<nav class="navbar">
-    <ul class="navbar-left">
-        <li><a th:href="@{/}" class="link">Home</a></li>
+<nav class="nav-bar">
+    <ul class="nav-links-left">
+        <li><a th:href="@{/}" class="nav-link">Home</a></li>
     </ul>
 
-    <ul class="navbar-right">
-        <li th:if="${session.user == null}"><a th:href="@{/signup}" class="link">Sign Up</a></li>
-        <li th:if="${session.user == null}"><a th:href="@{/login}" class="link">Login</a></li>
-
-        <li th:unless="${session.user == null}"><a th:text="${session.user}" class="link user"/></li>
-        <li th:unless="${session.user == null}"><a th:href="@{/logout}" class="link">Logout</a></li>
-
-        <li class="icon-container"><a th:href="@{/cart}" class="icon"></a></li>
+    <ul class="nav-links-right">
+        <li th:if="${session.user == null}">
+            <a th:href="@{/signup}" class="nav-link">Sign Up</a>
+        </li>
+        <li th:if="${session.user == null}">
+            <a th:href="@{/login}" class="nav-link">Login</a>
+        </li>
+        <li th:unless="${session.user == null}">
+            <a th:text="${session.user}" class="nav-link user-name"></a>
+        </li>
+        <li th:unless="${session.user == null}">
+            <a th:href="@{/logout}" class="nav-link">Logout</a>
+        </li>
+        <li class="cart-icon">
+            <a th:href="@{/cart}" class="icon"></a>
+        </li>
     </ul>
 </nav>
 
 <main>
-    <div class="content-wrapper">
-        <div class="content">
-            <h1 th:text="${requestedBooksSubject}"/>
-            <div class="book-card-wrapper">
-                <div class="book-card" th:each="b : ${requestedBooks}" th:object="${b}">
-                    <button class="add-to-cart-btn"
-                            aria-label="Add to Cart"
-                            th:onclick="addToCart([[*{getIsbn()}]])">
+    <div class="main-content">
+        <section class="book-list">
+            <h1 th:text="${requestedBooksSubject}" aria-live="polite"></h1>
+            <div class="book-cards">
+                <div class="book-item" th:each="b : ${requestedBooks}" th:object="${b}">
+                    <button class="btn-add-to-cart" th:onclick="addToCart([[*{getIsbn()}]])" aria-label="Add to Cart">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <img th:src="*{getThumbnail()}" alt="book-thumbnail">
-                    <h2 th:text="*{getTitle()}"/>
-                    <p th:text="'US$' + *{getPrice()}"/>
+                    <img th:src="*{getThumbnail()}" alt="Book thumbnail" class="book-thumbnail"/>
+                    <h2 th:text="*{getTitle()}"></h2>
+                    <p th:text="'US$' + *{getPrice()}"></p>
                 </div>
             </div>
 
-            <h1 th:text="${advertisementBooksSubject}"/>
-            <div class="book-card-wrapper">
-                <div class="book-card" th:each="b : ${advertisementBooks}" th:object="${b}">
-                    <button class="add-to-cart-btn"
-                            aria-label="Add to Cart"
-                            th:onclick="addToCart([[*{getIsbn()}]])">
+            <h1 th:text="${advertisementBooksSubject}" aria-live="polite"></h1>
+            <div class="book-cards">
+                <div class="book-item" th:each="b : ${advertisementBooks}" th:object="${b}">
+                    <button class="btn-add-to-cart" th:onclick="addToCart([[*{getIsbn()}]])" aria-label="Add to Cart">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <img th:src="*{getThumbnail()}" alt="book-thumbnail">
-                    <h2 th:text="*{getTitle()}"/>
-                    <p th:text="'US$' + *{getPrice()}"/>
+                    <img th:src="*{getThumbnail()}" alt="Book thumbnail" class="book-thumbnail"/>
+                    <h2 th:text="*{getTitle()}"></h2>
+                    <p th:text="'US$' + *{getPrice()}"></p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="search-bar">
+        <aside class="sidebar-widgets">
+            <div class="category-widget">
+                <h3 class="category-heading">Popular Categories</h3>
+                <form class="category-buttons" method="get">
+                    <input type="submit" name="subject" id="category-programming" value="Programming"
+                           class="category-btn">
+                    <input type="submit" name="subject" id="category-business" value="Business" class="category-btn">
+                    <input type="submit" name="subject" id="category-history" value="History" class="category-btn">
+                    <input type="submit" name="subject" id="category-religion" value="Religion" class="category-btn">
+                    <input type="submit" name="subject" id="category-science" value="Science" class="category-btn">
+                </form>
 
-        </div>
-
-        <div class="sidebar">
-            <div class="newsletter-section">
-                <div class="newsletter-header">
-                    <div>
-                        <img src="https://image.ebooks.com/ebooks_netcore/images/icons/sign-up.png"
-                             alt="Sign up for our newsletter">
-                    </div>
-                    <div><h5>Sign up for our&nbsp;newsletter</h5></div>
-                </div>
-                <div class="newsletter-subheading">
-                    <h5>Specials, new title alerts and more!</h5>
-                </div>
-                <form action="" method="post">
-                    <div>
-                        <input type="email" placeholder="Your email address" name="email">
-                        <button type="submit" disabled>Sign Up</button>
-                    </div>
+                <h3 class="category-heading">Fiction</h3>
+                <form class="category-buttons" method="get">
+                    <input type="submit" name="subject" id="category-crime" value="Crime" class="category-btn">
+                    <input type="submit" name="subject" id="category-fantasy" value="Fantasy" class="category-btn">
+                    <input type="submit" name="subject" id="category-literary" value="Literary" class="category-btn">
+                    <input type="submit" name="subject" id="category-romance" value="Romance" class="category-btn">
+                    <input type="submit" name="subject" id="category-scifi" value="Science Fiction"
+                           class="category-btn">
+                    <input type="submit" name="subject" id="category-thrillers" value="Thrillers" class="category-btn">
                 </form>
             </div>
-
-            <div class="categories-section">
-                <h3>Popular Categories</h3>
-                <form class="category-group" method="get">
-                    <input type="submit" name="subject" value="Programming">
-                    <input type="submit" name="subject" value="Business">
-                    <input type="submit" name="subject" value="History">
-                    <input type="submit" name="subject" value="Religion">
-                    <input type="submit" name="subject" value="Science">
-                </form>
-
-                <h3>Fiction</h3>
-                <form class="category-group" method="get">
-                    <input type="submit" name="subject" value="Crime">
-                    <input type="submit" name="subject" value="Fantasy">
-                    <input type="submit" name="subject" value="Literary">
-                    <input type="submit" name="subject" value="Romance">
-                    <input type="submit" name="subject" value="Science Fiction">
-                    <input type="submit" name="subject" value="Thrillers">
-                </form>
-            </div>
-        </div>
+        </aside>
     </div>
 </main>
+
 <script th:inline="javascript">
     function addToCart(isbn) {
         fetch("/cart", {
@@ -116,5 +101,6 @@
         });
     }
 </script>
+
 </body>
 </html>

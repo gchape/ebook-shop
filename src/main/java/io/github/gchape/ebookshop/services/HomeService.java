@@ -18,11 +18,12 @@ public class HomeService {
     }
 
     public HomePageData getData(String requestedBooksSubject) {
+        requestedBooksSubject = requestedBooksSubject == null ? "History" : requestedBooksSubject;
+
         var advertisementBooks = bookRepository.findByTitle("Spring Boot");
 
-        requestedBooksSubject = requestedBooksSubject == null ? "History" : requestedBooksSubject;
-        var subject = subjectRepository.findBySubjectName(requestedBooksSubject);
-        var requestedBooks = bookRepository.findBySubject(subject);
+        var subjectEntity = subjectRepository.findBySubjectName(requestedBooksSubject);
+        var requestedBooks = bookRepository.findBySubject(subjectEntity);
 
         return new HomePageData("Spring Boot", advertisementBooks, requestedBooksSubject, requestedBooks);
     }

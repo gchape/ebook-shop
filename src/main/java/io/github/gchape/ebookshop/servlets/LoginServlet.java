@@ -31,14 +31,14 @@ public class LoginServlet extends HttpServlet {
         var password = req.getParameter("password").trim();
         var username = loginService.authenticate(email, password);
 
-        if (username.isPresent()) {
+        if (username != null) {
             HttpSession session = req.getSession(false);
             if (session == null) {
                 session = req.getSession(true);
             }
 
             synchronized (session) {
-                session.setAttribute("user", username.get());
+                session.setAttribute("user", username);
                 resp.sendRedirect("/");
             }
         } else {

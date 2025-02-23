@@ -3,34 +3,34 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f2f7fb;
+  background-color: #f2f7fb;
 }
 
-.content-wrapper {
-  position: relative;
-  max-width: 450px;
+.login-container {
   width: 100%;
-  background: #fff;
+  max-width: 450px;
+  background-color: #fff;
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
+  position: relative;
 }
-.content-wrapper h2 {
+.login-container .login-title {
   font-size: 24px;
   font-weight: 600;
   color: #333;
   margin-bottom: 20px;
 }
-.content-wrapper h2::before {
+.login-container .login-title::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -39,59 +39,77 @@ body {
   height: 4px;
   width: 40px;
   border-radius: 12px;
-  background: #02537a;
+  background-color: #02537a;
 }
-.content-wrapper form {
+.login-container .login-form {
   margin-top: 30px;
 }
-.content-wrapper form .input-group {
-  height: 50px;
+.login-container .login-form .input-field {
   margin: 15px 0;
 }
-.content-wrapper form .input-group input {
-  height: 100%;
+.login-container .login-form .input-field .input {
   width: 100%;
-  outline: none;
+  height: 50px;
   padding: 0 18px;
   font-size: 16px;
   font-weight: 400;
   color: #333;
   border: 1.5px solid #cad6de;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
-.content-wrapper form .input-group input:focus, .content-wrapper form .input-group input:valid {
+.login-container .login-form .input-field .input:focus, .login-container .login-form .input-field .input:valid {
   border-color: #f2f7fb;
 }
-.content-wrapper form .input-group.button input {
+.login-container .login-form .form-action .submit-button {
+  width: 100%;
   height: 50px;
   font-size: 16px;
   color: #fff;
   letter-spacing: 1px;
+  background-color: #02537a;
   border: none;
-  background: #02537a;
-  cursor: pointer;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.content-wrapper form .input-group.button input:hover {
-  background-color: #017288;
+.login-container .login-form .form-action .submit-button:hover {
+  background-color: rgb(1.1774193548, 48.8629032258, 71.8225806452);
 }
-.content-wrapper form .text {
+.login-container .login-form .signup-text {
   margin-top: 20px;
 }
-.content-wrapper form .text h3 {
+.login-container .login-form .signup-text p {
   color: #333;
   font-size: 14px;
-  font-weight: 500;
-  margin-top: 10px;
+  font-weight: 400;
 }
-.content-wrapper form .text h3 a {
+.login-container .login-form .signup-text p .signup-link {
   color: #02537a;
   text-decoration: none;
 }
-.content-wrapper form .text h3 a:hover {
+.login-container .login-form .signup-text p .signup-link:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .login-container {
+    padding: 20px;
+    width: 90%;
+  }
+  .login-title {
+    font-size: 20px;
+  }
+  .input-field .input {
+    font-size: 14px;
+  }
+  .submit-button {
+    font-size: 14px;
+  }
+  .signup-text p {
+    font-size: 12px;
+  }
 }
 
 /*# sourceMappingURL=login.css.map */

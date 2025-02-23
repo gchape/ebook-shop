@@ -1,5 +1,6 @@
 package io.github.gchape.ebookshop.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.gchape.ebookshop.entities.Book;
@@ -19,8 +20,9 @@ import java.util.stream.Collectors;
 @Service
 public class CartService {
     private final ObjectMapper objectMapper;
-    private final List<String> booksIsbn = new ArrayList<>();
     private final IBookRepository bookRepository;
+
+    private final List<String> booksIsbn = new ArrayList<>();
 
     @Autowired
     public CartService(ObjectMapper objectMapper, IBookRepository bookRepository) {
@@ -28,17 +30,14 @@ public class CartService {
         this.bookRepository = bookRepository;
     }
 
-    public void add(HttpServletRequest req) {
-        var isbn = extractValueFromRequest(req, "isbn");
+    public void add(HttpServletRequest request) {
+        var requestBody = readRequestBody(request);
+        var isbn = requestBody.get("isbn");
+
         booksIsbn.add(isbn);
     }
 
-    public String extractValueFromRequest(HttpServletRequest req, String key) {
-        Map<String, String> requestData = readRequestBody(req);
-        return requestData.get(key);
-    }
-
-    public Map<Book, Long> getBookQuantityMap() {
+    public Map<Book, Long> groupByIsbn() {
         return booksIsbn
                 .stream()
                 .map(bookRepository::findByIsbn)
@@ -53,8 +52,10 @@ public class CartService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public void removeAll(HttpServletRequest request) {
-        var isbn = extractValueFromRequest(request, "isbn");
+    public void remove(HttpServletRequest request) {
+        var requestBody = readRequestBody(request);
+        var isbn = requestBody.get("isbn");
+
         booksIsbn.removeIf(existingIsbn -> existingIsbn.equals(isbn));
     }
 
@@ -75,18 +76,27 @@ public class CartService {
 
     private Map<String, String> readRequestBody(HttpServletRequest req) {
         try (BufferedReader reader = req.getReader()) {
-            StringBuilder sb = new StringBuilder();
-            String line;
+            var json = new StringBuilder();
 
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
+            for (String line; (line = reader.readLine()) != null; ) {
+                json.append(line);
             }
 
-            String json = sb.toString();
-            return objectMapper.readValue(json, new TypeReference<>() {
+            return objectMapper.readValue(json.toString(), new TypeReference<>() {
             });
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading request body", e);
+        } catch (IOException exception) {
+            throw new RuntimeException("Failed to parse request body", exception);
         }
+    }
+
+    public String isbnAndQuantity(Map<Book, Long> bookAndQuantity) throws JsonProcessingException {
+        if (bookAndQuantity == null) {
+            throw new IllegalArgumentException("Book and quantity cannot be null");
+        }
+
+        return objectMapper.writeValueAsString(bookAndQuantity.entrySet()
+                .stream()
+                .map(s -> Map.entry(s.getKey().getIsbn(), s.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
     }
 }

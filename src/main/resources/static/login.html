@@ -8,20 +8,20 @@
     <title>Login</title>
 </head>
 <body>
-<div class="content-wrapper">
-    <h2>Login</h2>
-    <form method="post" action="login">
-        <div class="input-group">
-            <input type="text" name="email" placeholder="Enter your email" required>
+<div class="login-container">
+    <h2 class="login-title">Login</h2>
+    <form method="post" action="login" class="login-form">
+        <div class="input-field">
+            <input type="text" name="email" placeholder="Enter your email" required class="input">
         </div>
-        <div class="input-group">
-            <input type="password" name="password" placeholder="Enter your password" required>
+        <div class="input-field">
+            <input type="password" name="password" placeholder="Enter your password" required class="input">
         </div>
-        <div class="input-group button">
-            <input type="Submit" value="Login">
+        <div class="form-action">
+            <input type="submit" value="Login" class="submit-button">
         </div>
-        <div class="text">
-            <h3>Don't have an account? <a href="signup">Sign Up</a></h3>
+        <div class="signup-text">
+            <p>Don't have an account? <a href="signup" class="signup-link">Sign Up</a></p>
         </div>
     </form>
 </div>

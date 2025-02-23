@@ -30,9 +30,10 @@ public class SignupServlet extends HttpServlet {
         var password = req.getParameter("password");
         var username = signupService.registerUser(name, email, password);
 
-        if (username.isPresent()) {
-            HttpSession session = req.getSession();
-            session.setAttribute("user", username.get());
+        if (username != null) {
+            HttpSession session = req.getSession(true);
+            session.setAttribute("user", username);
+
             resp.sendRedirect("/");
         } else {
             resp.sendRedirect("/signup");

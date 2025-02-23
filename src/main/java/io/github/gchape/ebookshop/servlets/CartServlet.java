@@ -1,6 +1,5 @@
 package io.github.gchape.ebookshop.servlets;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.gchape.ebookshop.entities.Book;
 import io.github.gchape.ebookshop.services.CartService;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,20 +13,16 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @WebServlet("/cart")
 public class CartServlet extends HttpServlet {
     private final CartService cartService;
     private final TemplateEngine templateEngine;
-    private final ObjectMapper objectMapper;
 
     @Autowired
-    public CartServlet(CartService cartService, TemplateEngine templateEngine, ObjectMapper objectMapper) {
+    public CartServlet(CartService cartService, TemplateEngine templateEngine) {
         this.cartService = cartService;
-        this.objectMapper = objectMapper;
         this.templateEngine = templateEngine;
     }
 
@@ -41,17 +36,11 @@ public class CartServlet extends HttpServlet {
         synchronized (session) {
             var webContext = new WebContext(JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp));
 
-            Map<Book, Long> bookQuantityMap = cartService.getBookQuantityMap();
-            BigDecimal totalPrice = cartService.getTotalPrice();
+            Map<Book, Long> bookAndQuantity = cartService.groupByIsbn();
 
-            session.setAttribute("bookQuantityMap", bookQuantityMap);
-
-            session.setAttribute("booksIsbnQuantity", objectMapper.writeValueAsString(bookQuantityMap.entrySet()
-                    .stream()
-                    .map(s -> Map.entry(s.getKey().getIsbn(), s.getValue()))
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
-
-            session.setAttribute("totalPrice", String.format("%.2f", totalPrice));
+            session.setAttribute("bookAndQuantity", bookAndQuantity);
+            session.setAttribute("isbnAndQuantity", cartService.isbnAndQuantity(bookAndQuantity));
+            session.setAttribute("totalPrice", String.format("%.2f", cartService.getTotalPrice()));
 
             resp.setContentType("text/html; charset=UTF-8");
             try (var writer = resp.getWriter()) {
@@ -72,6 +61,6 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-        cartService.removeAll(req);
+        cartService.remove(req);
     }
 }

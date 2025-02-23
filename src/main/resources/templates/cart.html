@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cart</title>
     <link rel="stylesheet" href="/css/cart.css">
@@ -13,7 +12,7 @@
 <div class="cart-container">
     <h1>Shopping Cart</h1>
     <div class="cart-items">
-        <div th:each="entry : ${session.bookQuantityMap}" class="cart-item">
+        <div th:each="entry : ${session.bookAndQuantity}" class="cart-item">
             <div class="cart-item-details">
                 <img th:src="@{${entry.key.getThumbnail()}}" alt="book-thumbnail" class="cart-item-image">
                 <div class="cart-item-info">
@@ -47,46 +46,41 @@
     </div>
 
     <button class="purchase-button"
-            th:onclick="processPayment([[${session.user}]], [[${session.booksIsbnQuantity}]])">Purchase
+            th:onclick="processPayment([[${session.user}]], [[${session.isbnAndQuantity}]])">Purchase
     </button>
 </div>
-<script>
-    async function updateQuantity(isbn, action) {
-        await fetch("/cart", {
+<script th:inline="javascript">
+    function updateQuantity(isbn, action) {
+        fetch("/cart", {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({isbn, action})
-        })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = "/cart";
-                } else {
-                    console.error("Failed to update quantity");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = "/cart";
+            } else {
+                console.error("Failed to update quantity");
+            }
+        }).catch(error => console.error("Error: ", error));
     }
 
-    async function removeItem(isbn) {
-        try {
-            const response = await fetch("/cart", {
-                method: "DELETE",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({isbn})
-            });
-
+    function removeItem(isbn) {
+        fetch("/cart", {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({isbn})
+        }).then(response => {
             if (response.ok) {
                 window.location.href = "/cart";
             } else {
                 console.error("Failed to remove item");
             }
-        } catch (error) {
-            console.error("Error:", error);
-        }
+        }).catch(error => console.error("Error: ", error))
     }
 
-    async function processPayment(user, isbnQuantityMap) {
-        const items = Object.entries(JSON.parse(isbnQuantityMap)).map(entry => ({
+    function processPayment(user, isbnAndQuantity) {
+        isbnAndQuantity = JSON.parse(isbnAndQuantity);
+        const items = Object.entries(isbnAndQuantity).map(entry => ({
             isbn: entry[0],
             quantity: entry[1]
         }));
@@ -96,19 +90,17 @@
             return;
         }
 
-        await fetch("/payment", {
+        fetch("/payment", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({items: items, user: user})
-        })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = "/confirmation";
-                } else {
-                    console.error("Purchase failed");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = "/confirmation";
+            } else {
+                console.error("Purchase failed");
+            }
+        }).catch(error => console.error("Error: ", error));
     }
 </script>
 </body>

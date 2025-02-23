@@ -7,8 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-
 @WebServlet("/payment")
 public class PaymentServlet extends HttpServlet {
     private final PaymentService paymentService;
@@ -19,15 +17,7 @@ public class PaymentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        try {
-            PaymentService.Order order = paymentService.parseOrder(req.getReader());
-
-            paymentService.save(order);
-
-            resp.setStatus(HttpServletResponse.SC_OK);
-        } catch (IOException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JSON");
-        }
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        paymentService.parseItems(req);
     }
 }

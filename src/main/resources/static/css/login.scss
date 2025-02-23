@@ -3,35 +3,77 @@
 $primary-color: #f2f7fb;
 $secondary-color: #02537a;
 $input-border-color: #cad6de;
-$button-background: #02537a;
+$button-background: $secondary-color;
 $button-hover: #017288;
+$border-radius: 8px;
+$input-height: 50px;
+$max-width: 450px;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $primary-color;
+  background-color: $primary-color;
 }
 
-.content-wrapper {
-  position: relative;
-  max-width: 450px;
+@mixin transition($properties...) {
+  transition: $properties 0.3s ease;
+}
+
+@mixin input-style {
   width: 100%;
-  background: #fff;
+  height: $input-height;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+  border: 1.5px solid $input-border-color;
+  border-radius: $border-radius;
+  outline: none;
+  @include transition(border-color);
+
+  &:focus,
+  &:valid {
+    border-color: $primary-color;
+  }
+}
+
+@mixin button-style($background-color) {
+  width: 100%;
+  height: $input-height;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: 1px;
+  background-color: $background-color;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  @include transition(background-color);
+
+  &:hover {
+    background-color: darken($background-color, 10%);
+  }
+}
+
+.login-container {
+  width: 100%;
+  max-width: $max-width;
+  background-color: #fff;
   padding: 40px;
-  border-radius: 8px;
+  border-radius: $border-radius;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
+  position: relative;
 
-  h2 {
+  .login-title {
     font-size: 24px;
     font-weight: 600;
     color: #333;
@@ -46,64 +88,36 @@ body {
       height: 4px;
       width: 40px;
       border-radius: 12px;
-      background: $secondary-color;
+      background-color: $secondary-color;
     }
   }
 
-  form {
+  .login-form {
     margin-top: 30px;
 
-    .input-group {
-      height: 50px;
+    .input-field {
       margin: 15px 0;
 
-      input {
-        height: 100%;
-        width: 100%;
-        outline: none;
-        padding: 0 18px;
-        font-size: 16px;
-        font-weight: 400;
-        color: #333;
-        border: 1.5px solid $input-border-color;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-
-        &:focus,
-        &:valid {
-          border-color: $primary-color;
-        }
+      .input {
+        @include input-style;
       }
     }
 
-    .input-group.button {
-      input {
-        height: 50px;
-        font-size: 16px;
-        color: #fff;
-        letter-spacing: 1px;
-        border: none;
-        background: $button-background;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-
-        &:hover {
-          background-color: $button-hover;
-        }
+    .form-action {
+      .submit-button {
+        @include button-style($button-background);
       }
     }
 
-    .text {
+    .signup-text {
       margin-top: 20px;
 
-      h3 {
+      p {
         color: #333;
         font-size: 14px;
-        font-weight: 500;
-        margin-top: 10px;
+        font-weight: 400;
 
-        a {
+        .signup-link {
           color: $secondary-color;
           text-decoration: none;
 
@@ -113,5 +127,30 @@ body {
         }
       }
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .login-container {
+    padding: 20px;
+    width: 90%;
+  }
+
+  .login-title {
+    font-size: 20px;
+  }
+
+  .input-field {
+    .input {
+      font-size: 14px;
+    }
+  }
+
+  .submit-button {
+    font-size: 14px;
+  }
+
+  .signup-text p {
+    font-size: 12px;
   }
 }
