@@ -4,8 +4,8 @@
 EbookShop is a web-based application for browsing, searching, and managing eBooks. It is built using Spring Boot, Thymeleaf, Servlets, and SCSS for styling. The application allows users to search for books via the Google Books API and manage their selections using a cart feature.
 
 ## Features
-- [X] **Book Listing**: Display books fetched from Google Books API. 
-- [X] **Payment Mock**
+- [X] **Book Listing**: Display books fetched from Google Books API.
+- [X] **Payment Mock**: Unlimited payment.
 - [X] **User Authentication**: Signup and login functionality.
 - [X] **Cart Management**: Add and remove books from the cart.
 - [X] **Server-side Rendering**: Uses Thymeleaf for dynamic HTML rendering.
@@ -17,6 +17,17 @@ EbookShop is a web-based application for browsing, searching, and managing eBook
 - **Google Books API** (Fetching book data)
 - **SCSS** (Styling and UI enhancements)
 - **JPA/Hibernate** (Data persistence)
+
+## Pictures
+### Home
+<img src="https://github.com/user-attachments/assets/e44d1f54-9344-404a-82de-27ac412dd070" width="600" />
+
+### Cart
+<img src="https://github.com/user-attachments/assets/f620da9e-1a83-4bb3-b075-c6ffc82bae0a" width="600" />
+
+### Authentication (BCrypt + HTML Escaping)
+<img src="https://github.com/user-attachments/assets/b9f415c6-8cbb-47f3-aa74-393c8aa1c964" width="300" />
+<img src="https://github.com/user-attachments/assets/c3f8a035-d563-4c52-bbab-7b0e913b7766" width="300" />
 
 ## Project Structure
 ```
