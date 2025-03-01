@@ -22,9 +22,6 @@ EbookShop is a web-based application for browsing, searching, and managing eBook
 ### Home
 <img src="https://github.com/user-attachments/assets/e44d1f54-9344-404a-82de-27ac412dd070" width="600" />
 
-### Cart
-<img src="https://github.com/user-attachments/assets/f620da9e-1a83-4bb3-b075-c6ffc82bae0a" width="600" />
-
 ### Authentication (BCrypt + HTML Escaping)
 <img src="https://github.com/user-attachments/assets/b9f415c6-8cbb-47f3-aa74-393c8aa1c964" width="300" />
 <img src="https://github.com/user-attachments/assets/c3f8a035-d563-4c52-bbab-7b0e913b7766" width="300" />
